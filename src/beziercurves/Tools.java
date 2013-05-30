@@ -24,4 +24,8 @@ public class Tools {
         }
         return value;
     }
+    
+    public static double horner(Point[] data){
+        return 0;
+    }
 }
