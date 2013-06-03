@@ -3,6 +3,11 @@ package beziercurves;
 import java.awt.Point;
 
 public class Tools {
+    private static int NewtonTable [][];
+    
+    public Tools(){
+        NewtonTable = new int[70][70];
+    }
     public static Point[] evalConvexHull(Point[] data){
         return data;
     }
@@ -25,7 +30,16 @@ public class Tools {
         return value;
     }
     
-    public static double horner(Point[] data){
+    public static double horner(Point[] data, int n, double x){
+        
         return 0;
+    }
+    
+    public static int NewtonSymbol(int n, int k){
+        if (NewtonTable[n][k] > 0){
+            return NewtonTable[n][k];
+        }
+        
+        return NewtonSymbol(n-1, k) + NewtonSymbol(n-1, k-1);
     }
 }
