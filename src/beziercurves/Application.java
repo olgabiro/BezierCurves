@@ -1,17 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package beziercurves;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.io.File;
 import javax.swing.JFileChooser;
 
-/**
- *
- * @author ola
- */
 public class Application extends javax.swing.JFrame {
     
     BezierCurves curve;
@@ -47,80 +41,47 @@ public class Application extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        about = new javax.swing.JDialog();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         fileChooser = new javax.swing.JFileChooser();
         colorChooserDialog = new javax.swing.JDialog();
-        jButton1 = new javax.swing.JButton();
+        colorChooserButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         colorChooser = new javax.swing.JColorChooser();
+        aboutDialog = new javax.swing.JDialog();
+        closeAboutDialog = new javax.swing.JButton();
+        aboutText = new javax.swing.JLabel();
+        instructionDialog = new javax.swing.JDialog();
+        closeInstrDialog = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel2 = new javax.swing.JPanel();
         colorButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        lowerDegree = new javax.swing.JButton();
+        higherDegree = new javax.swing.JButton();
+        convexHull = new javax.swing.JCheckBox();
+        clear = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         Menu = new javax.swing.JMenu();
         Open = new javax.swing.JMenuItem();
         Save = new javax.swing.JMenuItem();
         Quit = new javax.swing.JMenuItem();
         Help = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-
-        about.setMinimumSize(new java.awt.Dimension(430, 300));
-
-        jPanel3.setBackground(new java.awt.Color(226, 35, 198));
-
-        jTextPane1.setBackground(new java.awt.Color(236, 23, 169));
-        jTextPane1.setText("asdafadsafag WFMEWL;FMS sdf ;LFG AEL L;DKL; ;klaflak;gk ;lk4 fd lamg \nfagrgae\n\nagdfg\nfda\ngadfafdnfg\nh\nfdghs\nghf\nsgh\nf"); // NOI18N
-        jTextPane1.setEnabled(false);
-        jScrollPane1.setViewportView(jTextPane1);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(122, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout aboutLayout = new javax.swing.GroupLayout(about.getContentPane());
-        about.getContentPane().setLayout(aboutLayout);
-        aboutLayout.setHorizontalGroup(
-            aboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        aboutLayout.setVerticalGroup(
-            aboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        Instruction = new javax.swing.JMenuItem();
+        About = new javax.swing.JMenuItem();
 
         fileChooser.setDialogTitle("Choose a file");
         fileChooser.setFileFilter(new MyCustomFilter());
 
         colorChooserDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         colorChooserDialog.setTitle("Color Chooser");
-        colorChooserDialog.setBounds(new java.awt.Rectangle(50, 50, 50, 50));
+        colorChooserDialog.setBounds(new java.awt.Rectangle(375, 225, 50, 50));
         colorChooserDialog.setMinimumSize(new java.awt.Dimension(491, 300));
 
-        jButton1.setText("Zapisz");
-        jButton1.setToolTipText("Wybierz ten kolor");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        colorChooserButton.setText("Zapisz");
+        colorChooserButton.setToolTipText("Wybierz ten kolor");
+        colorChooserButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                colorChooserButtonActionPerformed(evt);
             }
         });
 
@@ -151,7 +112,7 @@ public class Application extends javax.swing.JFrame {
             colorChooserDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorChooserDialogLayout.createSequentialGroup()
                 .addContainerGap(435, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(colorChooserButton)
                 .addGap(15, 15, 15))
             .addGroup(colorChooserDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -160,21 +121,106 @@ public class Application extends javax.swing.JFrame {
             colorChooserDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorChooserDialogLayout.createSequentialGroup()
                 .addContainerGap(238, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(colorChooserButton)
                 .addGap(35, 35, 35))
             .addGroup(colorChooserDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        aboutDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        aboutDialog.setTitle("O autorze");
+        aboutDialog.setAlwaysOnTop(true);
+        aboutDialog.setBounds(new java.awt.Rectangle(500, 250, 261, 193));
+        aboutDialog.setMinimumSize(new java.awt.Dimension(261, 193));
 
-        jPanel1.setBackground(new java.awt.Color(165, 127, 158));
+        closeAboutDialog.setText("Zamknij");
+        closeAboutDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeAboutDialogActionPerformed(evt);
+            }
+        });
+
+        aboutText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        aboutText.setText("<html>  Autor: Olga Rosik-Rosińska <br>\nnr indeksu 248058 <br>\nInstytut Informatyki <br>\nUniwersytet Wrocławski <br> \nrok akademicki 2012/13 <br>\n</html>");
+        aboutText.setToolTipText("");
+
+        javax.swing.GroupLayout aboutDialogLayout = new javax.swing.GroupLayout(aboutDialog.getContentPane());
+        aboutDialog.getContentPane().setLayout(aboutDialogLayout);
+        aboutDialogLayout.setHorizontalGroup(
+            aboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aboutDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(aboutText, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(aboutDialogLayout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(closeAboutDialog)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        aboutDialogLayout.setVerticalGroup(
+            aboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aboutDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(aboutText, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(closeAboutDialog)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        instructionDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        instructionDialog.setTitle("Instrukcje");
+        instructionDialog.setAlwaysOnTop(true);
+        instructionDialog.setBounds(new java.awt.Rectangle(500, 250, 297, 300));
+        instructionDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        closeInstrDialog.setText("Zamknij");
+        closeInstrDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeInstrDialogActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("<html>\n<h2> Edytor krzywych Beziera </h2>\n\n<p> Rozpocznij przygodę z krzywymi Beziera! <br>\nKlikając na edytor, stworzysz punkty kontrolne. <br>\nMenu z boku pomoże ci edytować krzywą: <br>\nzwiększać oraz zmniejszać jej stopień, <br>\nzmieniać kolor na twój ulubiony. <br>\nPrzeciągając punkty zmieniasz kształt krzywej. </p>\n<br><br>\n<p>\nPrzyłącz się już dziś!\n</p> </html>");
+
+        javax.swing.GroupLayout instructionDialogLayout = new javax.swing.GroupLayout(instructionDialog.getContentPane());
+        instructionDialog.getContentPane().setLayout(instructionDialogLayout);
+        instructionDialogLayout.setHorizontalGroup(
+            instructionDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(instructionDialogLayout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(closeInstrDialog)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionDialogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        instructionDialogLayout.setVerticalGroup(
+            instructionDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(closeInstrDialog)
+                .addContainerGap())
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(400, 200, 420, 300));
+
+        jPanel1.setBackground(new java.awt.Color(247, 241, 246));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
+            .addGap(0, 298, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,28 +246,45 @@ public class Application extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(170, 154, 180));
-        jButton3.setText("stopień -");
-        jButton3.setToolTipText("zmniejsz stopień krzywej o 1");
-        jButton3.setAlignmentX(0.5F);
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        lowerDegree.setBackground(new java.awt.Color(170, 154, 180));
+        lowerDegree.setText("stopień -");
+        lowerDegree.setToolTipText("zmniejsz stopień krzywej o 1");
+        lowerDegree.setAlignmentX(0.5F);
+        lowerDegree.setFocusable(false);
+        lowerDegree.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lowerDegree.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        lowerDegree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                lowerDegreeActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(170, 154, 180));
-        jButton2.setText("stopień +");
-        jButton2.setToolTipText("zwiększ stopień o 1");
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        higherDegree.setBackground(new java.awt.Color(170, 154, 180));
+        higherDegree.setText("stopień +");
+        higherDegree.setToolTipText("zwiększ stopień o 1");
+        higherDegree.setFocusable(false);
+        higherDegree.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        higherDegree.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        higherDegree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                higherDegreeActionPerformed(evt);
+            }
+        });
+
+        convexHull.setBackground(new java.awt.Color(185, 173, 199));
+        convexHull.setText("otoczka");
+        convexHull.setToolTipText("Pokaż otoczkę wypukłą");
+        convexHull.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                convexHullActionPerformed(evt);
+            }
+        });
+
+        clear.setBackground(new java.awt.Color(170, 154, 180));
+        clear.setText("Wyczyść");
+        clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearActionPerformed(evt);
             }
         });
 
@@ -229,12 +292,14 @@ public class Application extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(colorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(higherDegree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lowerDegree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(colorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(2, 12, Short.MAX_VALUE)
+                .addComponent(convexHull)
                 .addContainerGap())
+            .addComponent(clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,10 +307,14 @@ public class Application extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(colorButton)
                 .addGap(12, 12, 12)
-                .addComponent(jButton3)
+                .addComponent(lowerDegree)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addGap(0, 145, Short.MAX_VALUE))
+                .addComponent(higherDegree)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(convexHull)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clear)
+                .addGap(0, 76, Short.MAX_VALUE))
         );
 
         jToolBar1.add(jPanel2);
@@ -282,16 +351,21 @@ public class Application extends javax.swing.JFrame {
         Help.setBackground(new java.awt.Color(185, 178, 189));
         Help.setText("Pomoc");
 
-        jMenuItem4.setText("Instrukcja obsługi");
-        Help.add(jMenuItem4);
-
-        jMenuItem5.setText("O autorze");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        Instruction.setText("Instrukcja obsługi");
+        Instruction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                InstructionActionPerformed(evt);
             }
         });
-        Help.add(jMenuItem5);
+        Help.add(Instruction);
+
+        About.setText("O autorze");
+        About.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AboutActionPerformed(evt);
+            }
+        });
+        Help.add(About);
 
         menuBar.add(Help);
 
@@ -303,8 +377,8 @@ public class Application extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,71 +393,132 @@ public class Application extends javax.swing.JFrame {
         colorChooserDialog.setVisible(true);
     }//GEN-LAST:event_colorButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void higherDegreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_higherDegreeActionPerformed
+        if(curve.degree > 0) {
+            curve.elevateDegree(jPanel1.getGraphics());
+        }
+    }//GEN-LAST:event_higherDegreeActionPerformed
 
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void clearPoints(){
+        Graphics g = jPanel1.getGraphics();
+        g.setColor(jPanel1.getBackground());
+        
+        if(convexHull.isSelected()){
+            Tools.evalConvexHull(curve, g, false);
+        }
+        curve.drawCurve(g);
+        for (int i=0; i <curve.degree; i++){
+            g.drawOval(curve.points[i].x, curve.points[i].y, 3, 3);
+            curve.points[i] = null;
+        }
+        curve.degree = 0;
+    }
+    private void lowerDegreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lowerDegreeActionPerformed
+        
+    }//GEN-LAST:event_lowerDegreeActionPerformed
 
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
         int returnVal = fileChooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-            try {
-            // What to do with the file, e.g. display it in a TextArea
-//              textarea.read( new FileReader( file.getAbsolutePath() ), null );
-//          } catch (IOException ex) {
-            System.out.println("problem accessing file"+file.getAbsolutePath());
-            }
-            finally {}
-        } 
-        else {
-            System.out.println("File access cancelled by user.");
         }
     }//GEN-LAST:event_OpenActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        about.setVisible(true);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    private void AboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AboutActionPerformed
+        aboutDialog.setVisible(true);
+    }//GEN-LAST:event_AboutActionPerformed
 
     private void QuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_QuitActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void colorChooserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorChooserButtonActionPerformed
         Color col = colorChooser.getColor();
-        curve.setColour(col);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        curve.colour = col;
+        colorChooserDialog.dispose();
+        Graphics g = jPanel1.getGraphics();
+        g.setColor(col);
+        for(int i=0; i<curve.degree; i++){
+            g.drawOval(curve.points[i].x, curve.points[i].y, 3, 3);
+        }
+        curve.drawCurve(g);
+        convexHullActionPerformed(evt);
+    }//GEN-LAST:event_colorChooserButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        Graphics g = jPanel1.getGraphics();
+        g.setColor(jPanel1.getBackground());
+        curve.drawCurve(g);
+        g.setColor(curve.colour);
+        Point a = jPanel1.getMousePosition();
+        g.drawOval(a.x, a.y, 3, 3);
+        
+//        System.out.print("[");
+//        for(int i=0; i< curve.degree; i++){
+//            System.out.print(curve.points[i] + ",");
+//        }
+//        System.out.println("]");
+//        
+//        System.out.println("degree = " + curve.degree);
+        int n = curve.degree;
+        curve.points[n] = a;
+        curve.weight[n] = 1;
+        curve.degree ++;
+        curve.drawCurve(g);
+        if(convexHull.isSelected()) {
+            Tools.evalConvexHull(curve, g, true);
+        }
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void InstructionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InstructionActionPerformed
+        instructionDialog.setVisible(true);
+    }//GEN-LAST:event_InstructionActionPerformed
+
+    private void closeAboutDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAboutDialogActionPerformed
+        aboutDialog.dispose();
+    }//GEN-LAST:event_closeAboutDialogActionPerformed
+
+    private void closeInstrDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeInstrDialogActionPerformed
+        instructionDialog.dispose();
+    }//GEN-LAST:event_closeInstrDialogActionPerformed
+
+    private void convexHullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_convexHullActionPerformed
+        Graphics g = jPanel1.getGraphics();
+        Tools.evalConvexHull(curve, g, convexHull.isSelected());
+       
+    }//GEN-LAST:event_convexHullActionPerformed
+
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+        clearPoints();
+    }//GEN-LAST:event_clearActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem About;
     private javax.swing.JMenu Help;
+    private javax.swing.JMenuItem Instruction;
     private javax.swing.JMenu Menu;
     private javax.swing.JMenuItem Open;
     private javax.swing.JMenuItem Quit;
     private javax.swing.JMenuItem Save;
-    private javax.swing.JDialog about;
+    private javax.swing.JDialog aboutDialog;
+    private javax.swing.JLabel aboutText;
+    private javax.swing.JButton clear;
+    private javax.swing.JButton closeAboutDialog;
+    private javax.swing.JButton closeInstrDialog;
     private javax.swing.JButton colorButton;
     private javax.swing.JColorChooser colorChooser;
+    private javax.swing.JButton colorChooserButton;
     private javax.swing.JDialog colorChooserDialog;
+    private javax.swing.JCheckBox convexHull;
     private javax.swing.JFileChooser fileChooser;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JButton higherDegree;
+    private javax.swing.JDialog instructionDialog;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JButton lowerDegree;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 }

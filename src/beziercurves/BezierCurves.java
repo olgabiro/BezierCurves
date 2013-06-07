@@ -1,5 +1,6 @@
 package beziercurves;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 
 public class BezierCurves {
@@ -15,24 +16,38 @@ public class BezierCurves {
         colour = Color.magenta;
     }
     
-    public void setColour(Color colour){
-        this.colour = colour;
-    }
-    
-    public void elevateDegree(){    //problem z utrata dokladnosci, co jesli trzeba bedzie to robic na doublach?
-        Point pom[] = new Point[degree + 2];
-        pom[0] = new Point(points[0].x, points[0].y);
-        for(int k=1; k<=degree; k++){
-            double factor = k / (degree + 1);
+    public void elevateDegree(Graphics g){
+        
+        /**
+         * NIE WIEDZIEĆ CZEMU ZUPEŁNIE NIE DZIAŁA.
+         */
+        Point pom[] = new Point[degree+1];
+        pom[0] = points[0];
+        for(int k=1; k<degree; k++){
+            double factor = k / (degree);
             int x = (int)(factor * points[k-1].x) + points[k].x - (int)(factor * points[k].x);
             int y = (int)(factor * points[k-1].y) + points[k].y - (int)(factor * points[k].y);
             pom[k] = new Point(x,y);
         }
-        pom[this.degree + 1] = new Point(points[this.degree].x, points[this.degree].y);
+        pom[this.degree] = new Point(points[this.degree-1].x, points[this.degree-1].y);
         points = pom;
+        
+        degree++;
+        g.setColor(colour);
+        drawCurve(g);
+    }
+    
+    public void drawCurve(Graphics g){
+        for (double i=0; i<=1; i += 0.0025){
+            Point p = Tools.horner(points, degree-1, i);
+            if(p != null){
+                g.drawLine(p.x, p.y, p.x, p.y);
+            }
+        }   
     }
     
     public static void main(String[] args) {
+        Tools t = new Tools();
          /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
