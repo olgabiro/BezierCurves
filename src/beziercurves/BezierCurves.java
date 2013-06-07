@@ -43,7 +43,10 @@ public class BezierCurves {
             if(p != null){
                 g.drawLine(p.x, p.y, p.x, p.y);
             }
-        }   
+        }  
+        if(degree > 0) {System.out.println("n = " + (degree-1) + "\n" + "Wn = (" + points[degree-1].x + "," + points[degree-1].y + ")");
+                        System.out.println("W0 = (" + points[0].x + "," + points[0].y + ")");}
+        System.out.println();
     }
     
     public static void main(String[] args) {

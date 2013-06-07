@@ -49,28 +49,38 @@ public class Tools {
         if(n < 1){
             return null;
         }
-        
+
         double factor;
         double f1;
+        double wx, wy;
         if(t < 0.5){
             factor = t/(1-t);
+//            System.out.println("t= " + t + ", factor = " + factor);
             f1 = Power((1-t), n);
+            wx = data[n].x;
+            wy = data[n].y;
+            for(int i=n-1; i>=0; i--){
+                wx = wx * factor + data[i].x * NewtonSymbol(n, i);
+                wy = wy * factor + data[i].y * NewtonSymbol(n, i);
+            }
         }
         else{
             factor = (1-t)/t;
+            if(factor < 1E-13) {factor = 0;}
             f1 = Power(t, n);
+            System.out.println("t= " + t + ", factor = " + factor);
+            wx = data[0].x;
+            wy = data[0].y;
+            for(int i=n-1; i>=0; i--){
+                wx = wx * factor + data[n-i].x * NewtonSymbol(n, i);
+                wy = wy * factor + data[n-i].y * NewtonSymbol(n, i);
+            }
         }
-        double wx = data[n].x;
-        double wy = data[n].y;
-
-        for(int i=1; i<=n; i++){
-            wx = wx * factor + data[i].x * NewtonSymbol(n, i);
-            wy = wy * factor + data[i].y * NewtonSymbol(n, i);
-        }
+        
         wx *= f1;
         wy *= f1;
         
-//        System.out.println("t = " + t + " factor = " + factor + " f1 = " + f1 + " wx = " + wx + " wy = " + wy);
+        System.out.println("t = " + t + " factor = " + factor + " f1 = " + f1 + " wx = " + wx + " wy = " + wy);
 //        System.out.println("Point(" + (int)wx + "," + (int)wy + ")");
         return new Point((int) wx, (int) wy);
     }
@@ -79,11 +89,10 @@ public class Tools {
         if (NewtonTable[n][k] > 0){
             return NewtonTable[n][k];
         }
-        
         return NewtonSymbol(n-1, k) + NewtonSymbol(n-1, k-1);
     }
     
-    public static double Power (double x, double n){
+    public static double Power (double x, int n){
         double wynik = 1;
         while(n-- > 0){
             wynik *= x;
