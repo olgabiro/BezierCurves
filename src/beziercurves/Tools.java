@@ -49,13 +49,11 @@ public class Tools {
         if(n < 1){
             return null;
         }
-
         double factor;
         double f1;
         double wx, wy;
         if(t < 0.5){
             factor = t/(1-t);
-//            System.out.println("t= " + t + ", factor = " + factor);
             f1 = Power((1-t), n);
             wx = data[n].x;
             wy = data[n].y;
@@ -66,9 +64,7 @@ public class Tools {
         }
         else{
             factor = (1-t)/t;
-            if(factor < 1E-13) {factor = 0;}
             f1 = Power(t, n);
-            System.out.println("t= " + t + ", factor = " + factor);
             wx = data[0].x;
             wy = data[0].y;
             for(int i=n-1; i>=0; i--){
@@ -79,9 +75,6 @@ public class Tools {
         
         wx *= f1;
         wy *= f1;
-        
-        System.out.println("t = " + t + " factor = " + factor + " f1 = " + f1 + " wx = " + wx + " wy = " + wy);
-//        System.out.println("Point(" + (int)wx + "," + (int)wy + ")");
         return new Point((int) wx, (int) wy);
     }
     

@@ -17,23 +17,40 @@ public class BezierCurves {
     }
     
     public void elevateDegree(Graphics g){
+        // clearing the screen
+        g.setColor(new Color(247,241,246));
+        for(int i=0; i<degree; i++){
+            g.drawOval(points[i].x, points[i].y, 3, 3);
+        }
+        drawCurve(g);
         
-        /**
-         * NIE WIEDZIEĆ CZEMU ZUPEŁNIE NIE DZIAŁA.
-         */
+        //creating new points
         Point pom[] = new Point[degree+1];
         pom[0] = points[0];
         for(int k=1; k<degree; k++){
-            double factor = k / (degree);
-            int x = (int)(factor * points[k-1].x) + points[k].x - (int)(factor * points[k].x);
-            int y = (int)(factor * points[k-1].y) + points[k].y - (int)(factor * points[k].y);
-            pom[k] = new Point(x,y);
+            double factor = (double)k / (double)degree;
+            double x = (factor * points[k-1].x) + (1 - factor) * points[k].x;
+            double y = (factor * points[k-1].y) + (1 - factor) * points[k].y;
+            pom[k] = new Point((int)x,(int)y);
+            System.out.println("n+1 = " + degree + ", k = " + k + ", k/n+1 = " + factor);
         }
-        pom[this.degree] = new Point(points[this.degree-1].x, points[this.degree-1].y);
-        points = pom;
+        pom[degree] = new Point(points[degree-1].x, points[degree-1].y);
         
+        for(int i=0; i<=degree; i++){
+            points[i] = pom[i];
+            System.out.println(points[i]);
+        }
+        
+        // debug
+        System.out.println("degree before = " + degree);
         degree++;
+        System.out.println("degree after = " + degree + "\n");
+        
+        // drawing the curve
         g.setColor(colour);
+        for(int i=0; i<degree; i++){
+            g.drawOval(points[i].x, points[i].y, 3, 3);
+        }
         drawCurve(g);
     }
     
@@ -44,9 +61,6 @@ public class BezierCurves {
                 g.drawLine(p.x, p.y, p.x, p.y);
             }
         }  
-        if(degree > 0) {System.out.println("n = " + (degree-1) + "\n" + "Wn = (" + points[degree-1].x + "," + points[degree-1].y + ")");
-                        System.out.println("W0 = (" + points[0].x + "," + points[0].y + ")");}
-        System.out.println();
     }
     
     public static void main(String[] args) {
