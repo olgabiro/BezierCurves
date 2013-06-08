@@ -48,15 +48,63 @@ public class BezierCurves {
         drawCurve(g);
     }
     
+    public void lowerDegree(Graphics g, int method){
+        // clearing the screen
+        g.setColor(new Color(247,241,246));
+        for(int i=0; i<degree; i++){
+            g.drawOval(points[i].x, points[i].y, 3, 3);
+        }
+        drawCurve(g);
+        
+        switch(method){
+            case 1:
+                deelevateStyle();
+                break;
+            case 2:
+                approxStyle();
+                break;
+            case 3:
+                hermiteStyle();
+                break;
+            case 4:
+                PWoStyle();
+                break;
+        }
+		
+		// drawing the curve
+        g.setColor(colour);
+        for(int i=0; i<degree; i++){
+            g.drawOval(points[i].x, points[i].y, 3, 3);
+        }
+        drawCurve(g);
+		
+    }
+    
     public void drawCurve(Graphics g){
-        for (double i=0; i<=1; i += 0.0025){
+        for (double i=0; i<=1; i += 0.0015){
             Point p = Tools.horner(points, weight, degree-1, i);
             if(p != null){
                 g.drawLine(p.x, p.y, p.x, p.y);
             }
         }  
     }
+	
+	public void deelevateStyle(){
+		
+	}
+	
+	public void approxStyle(){
+		
+	}
     
+	public void hermiteStyle(){
+		
+	}
+	
+	public void PWoStyle(){
+		
+	}
+	
     public static void main(String[] args) {
         Tools t = new Tools();
          /* Set the Nimbus look and feel */

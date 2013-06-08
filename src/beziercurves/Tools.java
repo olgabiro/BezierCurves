@@ -24,7 +24,6 @@ public class Tools {
         for (int i=1; i<c.degree; i++){
             g.drawLine(c.points[i-1].x, c.points[i-1].y, c.points[i].x, c.points[i].y);
         }
-        
     }
     
     public static int factorial(int n){
@@ -74,9 +73,6 @@ public class Tools {
                 w = w * factor + weight[n-i] * s;
             }
         }
-//        w *= f1;
-//        wx *= f1;
-//        wy *= f1;
         wx = wx / w;
         wy = wy / w;
         return new Point((int) wx, (int) wy);

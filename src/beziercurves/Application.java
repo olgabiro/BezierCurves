@@ -52,6 +52,13 @@ public class Application extends javax.swing.JFrame {
         instructionDialog = new javax.swing.JDialog();
         closeInstrDialog = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        lowerPrompt = new javax.swing.JDialog();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton4 = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel2 = new javax.swing.JPanel();
@@ -203,6 +210,61 @@ public class Application extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(closeInstrDialog)
+                .addContainerGap())
+        );
+
+        lowerPrompt.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        lowerPrompt.setAlwaysOnTop(true);
+        lowerPrompt.setBounds(new java.awt.Rectangle(450, 275, 350, 200));
+        lowerPrompt.setResizable(false);
+
+        jRadioButton1.setText("odwrotność podwyższenia stopnia");
+
+        jRadioButton2.setText("wykorzystanie aproksymacji jednostajnej");
+
+        jRadioButton3.setText("wykorzystanie interpolacji Hermite'a");
+
+        jRadioButton4.setText("wykorzystanie aproksymacji średniokwadratowej");
+
+        jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Wybierz ulubioną metodę");
+
+        javax.swing.GroupLayout lowerPromptLayout = new javax.swing.GroupLayout(lowerPrompt.getContentPane());
+        lowerPrompt.getContentPane().setLayout(lowerPromptLayout);
+        lowerPromptLayout.setHorizontalGroup(
+            lowerPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lowerPromptLayout.createSequentialGroup()
+                .addGroup(lowerPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(lowerPromptLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(lowerPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButton2)
+                            .addComponent(jRadioButton1)))
+                    .addGroup(lowerPromptLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel2))
+                    .addGroup(lowerPromptLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jRadioButton4))
+                    .addGroup(lowerPromptLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jRadioButton3)))
+                .addContainerGap())
+        );
+        lowerPromptLayout.setVerticalGroup(
+            lowerPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lowerPromptLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton2)
+                .addGap(12, 12, 12)
+                .addComponent(jRadioButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton4)
                 .addContainerGap())
         );
 
@@ -414,7 +476,7 @@ public class Application extends javax.swing.JFrame {
         curve.degree = 0;
     }
     private void lowerDegreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lowerDegreeActionPerformed
-        
+		lowerPrompt.setVisible(true);
     }//GEN-LAST:event_lowerDegreeActionPerformed
 
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
@@ -502,6 +564,7 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JMenuItem Save;
     private javax.swing.JDialog aboutDialog;
     private javax.swing.JLabel aboutText;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton clear;
     private javax.swing.JButton closeAboutDialog;
     private javax.swing.JButton closeInstrDialog;
@@ -514,11 +577,17 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JButton higherDegree;
     private javax.swing.JDialog instructionDialog;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton lowerDegree;
+    private javax.swing.JDialog lowerPrompt;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 }
