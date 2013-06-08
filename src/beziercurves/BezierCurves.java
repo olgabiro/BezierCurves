@@ -32,19 +32,13 @@ public class BezierCurves {
             double x = (factor * points[k-1].x) + (1 - factor) * points[k].x;
             double y = (factor * points[k-1].y) + (1 - factor) * points[k].y;
             pom[k] = new Point((int)x,(int)y);
-            System.out.println("n+1 = " + degree + ", k = " + k + ", k/n+1 = " + factor);
         }
         pom[degree] = new Point(points[degree-1].x, points[degree-1].y);
         
         for(int i=0; i<=degree; i++){
             points[i] = pom[i];
-            System.out.println(points[i]);
         }
-        
-        // debug
-        System.out.println("degree before = " + degree);
         degree++;
-        System.out.println("degree after = " + degree + "\n");
         
         // drawing the curve
         g.setColor(colour);
@@ -56,7 +50,7 @@ public class BezierCurves {
     
     public void drawCurve(Graphics g){
         for (double i=0; i<=1; i += 0.0025){
-            Point p = Tools.horner(points, degree-1, i);
+            Point p = Tools.horner(points, weight, degree-1, i);
             if(p != null){
                 g.drawLine(p.x, p.y, p.x, p.y);
             }
