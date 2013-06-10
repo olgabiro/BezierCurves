@@ -14,13 +14,13 @@ public class Application extends javax.swing.JFrame {
         @Override
         public boolean accept(File file) {
             // Allow only directories, or files with ".txt" extension
-            return file.isDirectory() || file.getAbsolutePath().endsWith(".txt");
+            return file.isDirectory() || file.getAbsolutePath().endsWith(".jpg");
         }
         @Override
         public String getDescription() {
             // This description will be displayed in the dialog,
             // hard-coded = ugly, should be done via I18N
-            return "Text documents (*.txt)";
+            return "Text documents (*.jpg)";
         }
     } 
 
@@ -52,12 +52,12 @@ public class Application extends javax.swing.JFrame {
         instructionDialog = new javax.swing.JDialog();
         closeInstrDialog = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        methods = new javax.swing.ButtonGroup();
         lowerPrompt = new javax.swing.JDialog();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        deelevate = new javax.swing.JRadioButton();
+        approx = new javax.swing.JRadioButton();
+        hermite = new javax.swing.JRadioButton();
+        PWo = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
@@ -218,13 +218,38 @@ public class Application extends javax.swing.JFrame {
         lowerPrompt.setBounds(new java.awt.Rectangle(450, 275, 350, 200));
         lowerPrompt.setResizable(false);
 
-        jRadioButton1.setText("odwrotność podwyższenia stopnia");
+        methods.add(deelevate);
+        deelevate.setSelected(true);
+        deelevate.setText("odwrotność podwyższenia stopnia");
+        deelevate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deelevateActionPerformed(evt);
+            }
+        });
 
-        jRadioButton2.setText("wykorzystanie aproksymacji jednostajnej");
+        methods.add(approx);
+        approx.setText("wykorzystanie aproksymacji jednostajnej");
+        approx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                approxActionPerformed(evt);
+            }
+        });
 
-        jRadioButton3.setText("wykorzystanie interpolacji Hermite'a");
+        methods.add(hermite);
+        hermite.setText("wykorzystanie interpolacji Hermite'a");
+        hermite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hermiteActionPerformed(evt);
+            }
+        });
 
-        jRadioButton4.setText("wykorzystanie aproksymacji średniokwadratowej");
+        methods.add(PWo);
+        PWo.setText("wykorzystanie aproksymacji średniokwadratowej");
+        PWo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PWoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -239,17 +264,17 @@ public class Application extends javax.swing.JFrame {
                     .addGroup(lowerPromptLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(lowerPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton1)))
+                            .addComponent(approx)
+                            .addComponent(deelevate)))
                     .addGroup(lowerPromptLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jLabel2))
                     .addGroup(lowerPromptLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jRadioButton4))
+                        .addComponent(PWo))
                     .addGroup(lowerPromptLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jRadioButton3)))
+                        .addComponent(hermite)))
                 .addContainerGap())
         );
         lowerPromptLayout.setVerticalGroup(
@@ -258,13 +283,13 @@ public class Application extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton1)
+                .addComponent(deelevate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton2)
+                .addComponent(approx)
                 .addGap(12, 12, 12)
-                .addComponent(jRadioButton3)
+                .addComponent(hermite)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton4)
+                .addComponent(PWo)
                 .addContainerGap())
         );
 
@@ -286,7 +311,7 @@ public class Application extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         jToolBar1.setBackground(new java.awt.Color(183, 81, 211));
@@ -475,6 +500,16 @@ public class Application extends javax.swing.JFrame {
         }
         curve.degree = 0;
     }
+	
+	private void drawPoints() {
+		Graphics g = jPanel1.getGraphics();
+		g.setColor(curve.colour);
+		
+		for(int i=0; i<curve.degree; i++){
+			g.drawOval(curve.points[i].x, curve.points[i].y, 3, 3);
+		}
+	}
+	
     private void lowerDegreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lowerDegreeActionPerformed
 		lowerPrompt.setVisible(true);
     }//GEN-LAST:event_lowerDegreeActionPerformed
@@ -500,9 +535,7 @@ public class Application extends javax.swing.JFrame {
         colorChooserDialog.dispose();
         Graphics g = jPanel1.getGraphics();
         g.setColor(col);
-        for(int i=0; i<curve.degree; i++){
-            g.drawOval(curve.points[i].x, curve.points[i].y, 3, 3);
-        }
+        drawPoints();
         curve.drawCurve(g);
         convexHullActionPerformed(evt);
     }//GEN-LAST:event_colorChooserButtonActionPerformed
@@ -517,6 +550,7 @@ public class Application extends javax.swing.JFrame {
         if(convexHull.isSelected() && curve.degree > 1){
 			Tools.evalConvexHull(curve, g, false);
 		}
+		drawPoints();
 		g.setColor(curve.colour);
         int n = curve.degree;
         curve.points[n] = a;
@@ -542,12 +576,49 @@ public class Application extends javax.swing.JFrame {
 
     private void convexHullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_convexHullActionPerformed
         Graphics g = jPanel1.getGraphics();
-        if(curve.degree > 1) {Tools.evalConvexHull(curve, g, convexHull.isSelected()); }
+        if(curve.degree > 1){
+			Tools.evalConvexHull(curve, g, convexHull.isSelected());
+		}
+		drawPoints();
+		g.setColor(curve.colour);
+		curve.drawCurve(g);
     }//GEN-LAST:event_convexHullActionPerformed
 
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
         clearPoints();
     }//GEN-LAST:event_clearActionPerformed
+
+    private void deelevateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deelevateActionPerformed
+        if(deelevate.isSelected()){
+			Graphics g = jPanel1.getGraphics();
+			curve.lowerDegree(g,1);
+		}
+		lowerPrompt.dispose();
+    }//GEN-LAST:event_deelevateActionPerformed
+
+    private void approxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approxActionPerformed
+        if(approx.isSelected()){
+			Graphics g = jPanel1.getGraphics();
+			curve.lowerDegree(g,2);
+		}
+		lowerPrompt.dispose();
+    }//GEN-LAST:event_approxActionPerformed
+
+    private void hermiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hermiteActionPerformed
+        if(hermite.isSelected()){
+			Graphics g = jPanel1.getGraphics();
+			curve.lowerDegree(g,3);
+		}
+		lowerPrompt.dispose();
+    }//GEN-LAST:event_hermiteActionPerformed
+
+    private void PWoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PWoActionPerformed
+        if(PWo.isSelected()){
+			Graphics g = jPanel1.getGraphics();
+			curve.lowerDegree(g,4);
+		}
+		lowerPrompt.dispose();
+    }//GEN-LAST:event_PWoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem About;
@@ -555,11 +626,12 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JMenuItem Instruction;
     private javax.swing.JMenu Menu;
     private javax.swing.JMenuItem Open;
+    private javax.swing.JRadioButton PWo;
     private javax.swing.JMenuItem Quit;
     private javax.swing.JMenuItem Save;
     private javax.swing.JDialog aboutDialog;
     private javax.swing.JLabel aboutText;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JRadioButton approx;
     private javax.swing.JButton clear;
     private javax.swing.JButton closeAboutDialog;
     private javax.swing.JButton closeInstrDialog;
@@ -568,7 +640,9 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JButton colorChooserButton;
     private javax.swing.JDialog colorChooserDialog;
     private javax.swing.JCheckBox convexHull;
+    private javax.swing.JRadioButton deelevate;
     private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JRadioButton hermite;
     private javax.swing.JButton higherDegree;
     private javax.swing.JDialog instructionDialog;
     private javax.swing.JLabel jLabel1;
@@ -576,13 +650,10 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton lowerDegree;
     private javax.swing.JDialog lowerPrompt;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.ButtonGroup methods;
     // End of variables declaration//GEN-END:variables
 }

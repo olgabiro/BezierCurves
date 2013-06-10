@@ -49,6 +49,7 @@ public class BezierCurves {
     }
     
     public void lowerDegree(Graphics g, int method){
+		if(degree < 2) {return;}
         // clearing the screen
         g.setColor(new Color(247,241,246));
         for(int i=0; i<degree; i++){
@@ -90,6 +91,8 @@ public class BezierCurves {
     }
 	
 	public void deelevateStyle(){
+		degree--;
+		points[degree-1] = points[degree];
 		
 	}
 	
