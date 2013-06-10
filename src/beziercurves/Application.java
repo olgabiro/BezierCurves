@@ -514,20 +514,16 @@ public class Application extends javax.swing.JFrame {
         g.setColor(curve.colour);
         Point a = jPanel1.getMousePosition();
         g.drawOval(a.x, a.y, 3, 3);
-        
-//        System.out.print("[");
-//        for(int i=0; i< curve.degree; i++){
-//            System.out.print(curve.points[i] + ",");
-//        }
-//        System.out.println("]");
-//        
-//        System.out.println("degree = " + curve.degree);
+        if(convexHull.isSelected() && curve.degree > 1){
+			Tools.evalConvexHull(curve, g, false);
+		}
+		g.setColor(curve.colour);
         int n = curve.degree;
         curve.points[n] = a;
         curve.weight[n] = 1;
         curve.degree ++;
         curve.drawCurve(g);
-        if(convexHull.isSelected()) {
+        if(convexHull.isSelected() && curve.degree > 1) {
             Tools.evalConvexHull(curve, g, true);
         }
     }//GEN-LAST:event_jPanel1MouseClicked
@@ -546,8 +542,7 @@ public class Application extends javax.swing.JFrame {
 
     private void convexHullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_convexHullActionPerformed
         Graphics g = jPanel1.getGraphics();
-        Tools.evalConvexHull(curve, g, convexHull.isSelected());
-       
+        if(curve.degree > 1) {Tools.evalConvexHull(curve, g, convexHull.isSelected()); }
     }//GEN-LAST:event_convexHullActionPerformed
 
     private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed

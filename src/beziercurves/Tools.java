@@ -14,16 +14,51 @@ public class Tools {
             NewtonTable[i][i] = 1;
         }
     }
+	
+	static int det(Point a, Point b){
+		return a.x * b.y - a.y * b.x;
+	}
+	
+	static boolean turnsRight(Point a, Point b, Point c){
+		Point x = new Point(b.x - a.x, b.y - a.y);
+		Point y = new Point(c.x - a.x, c.y - a.y);
+		int n = det(x,y);
+		if (n < 0) {
+			return true;
+		}
+		return false;
+	}
+	
     public static void evalConvexHull(BezierCurves c, Graphics g, boolean x){
-        if(!x) {
+		if(!x) {	// clear convex hull
             g.setColor(new Color(247,241,246));
         }
-        else {
+        else {		// draw black convex hull
             g.setColor(Color.BLACK);
         }
-        for (int i=1; i<c.degree; i++){
-            g.drawLine(c.points[i-1].x, c.points[i-1].y, c.points[i].x, c.points[i].y);
-        }
+		
+		Point pMin = c.points[0];
+		for(int i=1; i<c.degree; i++){
+			if(c.points[i].x < pMin.x){ pMin = c.points[i]; }
+			else if(c.points[i].x == pMin.x && c.points[i].y < pMin.y) {pMin = c.points[i];}
+		}
+		
+		Point p, last;
+		last = pMin;
+		do {
+				if(c.points[0] == last){
+					p = c.points[1];
+				}
+				else {p = c.points[0];}
+				
+				for(int j=0; j < c.degree; j++){
+					if((last.x != c.points[j].x || last.y != c.points[j].y) && turnsRight(last, p, c.points[j])){
+						p = c.points[j];
+					}
+				}
+				g.drawLine(last.x, last.y, p.x, p.y);
+				last = p;
+		} while(p != pMin);
     }
     
     public static int factorial(int n){
