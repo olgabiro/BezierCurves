@@ -9,17 +9,16 @@ import javax.swing.JFileChooser;
 public class Application extends javax.swing.JFrame {
     
     BezierCurves curve;
+	
+	int methodChosen;
     
     class MyCustomFilter extends javax.swing.filechooser.FileFilter {
         @Override
         public boolean accept(File file) {
-            // Allow only directories, or files with ".txt" extension
             return file.isDirectory() || file.getAbsolutePath().endsWith(".jpg");
         }
         @Override
         public String getDescription() {
-            // This description will be displayed in the dialog,
-            // hard-coded = ugly, should be done via I18N
             return "Text documents (*.jpg)";
         }
     } 
@@ -29,6 +28,7 @@ public class Application extends javax.swing.JFrame {
      */
     public Application() {
         curve = new BezierCurves();
+		methodChosen = 1;
         initComponents();
     }
 
@@ -59,6 +59,10 @@ public class Application extends javax.swing.JFrame {
         hermite = new javax.swing.JRadioButton();
         PWo = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
+        helloPrompt = new javax.swing.JDialog();
+        jLabel3 = new javax.swing.JLabel();
+        notShow = new javax.swing.JCheckBox();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel2 = new javax.swing.JPanel();
@@ -67,6 +71,7 @@ public class Application extends javax.swing.JFrame {
         higherDegree = new javax.swing.JButton();
         convexHull = new javax.swing.JCheckBox();
         clear = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         Menu = new javax.swing.JMenu();
         Open = new javax.swing.JMenuItem();
@@ -84,6 +89,7 @@ public class Application extends javax.swing.JFrame {
         colorChooserDialog.setBounds(new java.awt.Rectangle(375, 225, 50, 50));
         colorChooserDialog.setMinimumSize(new java.awt.Dimension(491, 300));
 
+        colorChooserButton.setBackground(new java.awt.Color(170, 154, 180));
         colorChooserButton.setText("Zapisz");
         colorChooserButton.setToolTipText("Wybierz ten kolor");
         colorChooserButton.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +146,7 @@ public class Application extends javax.swing.JFrame {
         aboutDialog.setBounds(new java.awt.Rectangle(500, 250, 261, 193));
         aboutDialog.setMinimumSize(new java.awt.Dimension(261, 193));
 
+        closeAboutDialog.setBackground(new java.awt.Color(170, 154, 180));
         closeAboutDialog.setText("Zamknij");
         closeAboutDialog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +155,7 @@ public class Application extends javax.swing.JFrame {
         });
 
         aboutText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        aboutText.setText("<html>  Autor: Olga Rosik-Rosińska <br>\nnr indeksu 248058 <br>\nInstytut Informatyki <br>\nUniwersytet Wrocławski <br> \nrok akademicki 2012/13 <br>\n</html>");
+        aboutText.setText("<html>  <p align=\"center\">\nAutor: Olga Rosik-Rosińska\nnr indeksu 248058\nInstytut Informatyki\nUniwersytet Wrocławski\nrok akademicki 2012/13\n</p>\n</html>");
         aboutText.setToolTipText("");
 
         javax.swing.GroupLayout aboutDialogLayout = new javax.swing.GroupLayout(aboutDialog.getContentPane());
@@ -160,18 +167,18 @@ public class Application extends javax.swing.JFrame {
                 .addComponent(aboutText, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(aboutDialogLayout.createSequentialGroup()
-                .addGap(97, 97, 97)
+                .addGap(99, 99, 99)
                 .addComponent(closeAboutDialog)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         aboutDialogLayout.setVerticalGroup(
             aboutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, aboutDialogLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(aboutText, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(aboutText, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(closeAboutDialog)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         instructionDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -180,6 +187,7 @@ public class Application extends javax.swing.JFrame {
         instructionDialog.setBounds(new java.awt.Rectangle(500, 250, 297, 300));
         instructionDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        closeInstrDialog.setBackground(new java.awt.Color(170, 154, 180));
         closeInstrDialog.setText("Zamknij");
         closeInstrDialog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,27 +196,27 @@ public class Application extends javax.swing.JFrame {
         });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("<html>\n<h2> Edytor krzywych Beziera </h2>\n\n<p> Rozpocznij przygodę z krzywymi Beziera! <br>\nKlikając na edytor, stworzysz punkty kontrolne. <br>\nMenu z boku pomoże ci edytować krzywą: <br>\nzwiększać oraz zmniejszać jej stopień, <br>\nzmieniać kolor na twój ulubiony. <br>\nPrzeciągając punkty zmieniasz kształt krzywej. </p>\n<br><br>\n<p>\nPrzyłącz się już dziś!\n</p> </html>");
+        jLabel1.setText("<html>\n<h2 align=\"center\"> Edytor krzywych Beziera </h2>\n\n<p align=\"center\"> Rozpocznij przygodę z krzywymi Beziera!\nKlikając na edytor, stworzysz punkty kontrolne.\nMenu z boku pomoże ci edytować krzywą:\nzwiększać oraz zmniejszać jej stopień,\nzmieniać kolor na twój ulubiony.\nPrzeciągając punkty zmieniasz kształt krzywej. </p>\n<br>\n<p align=\"center\">\nPrzyłącz się już dziś!\n</p> </html>");
 
         javax.swing.GroupLayout instructionDialogLayout = new javax.swing.GroupLayout(instructionDialog.getContentPane());
         instructionDialog.getContentPane().setLayout(instructionDialogLayout);
         instructionDialogLayout.setHorizontalGroup(
             instructionDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(instructionDialogLayout.createSequentialGroup()
-                .addGap(108, 108, 108)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
+            .addGroup(instructionDialogLayout.createSequentialGroup()
+                .addGap(95, 95, 95)
                 .addComponent(closeInstrDialog)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionDialogLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         instructionDialogLayout.setVerticalGroup(
             instructionDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructionDialogLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(closeInstrDialog)
                 .addContainerGap())
         );
@@ -218,6 +226,7 @@ public class Application extends javax.swing.JFrame {
         lowerPrompt.setBounds(new java.awt.Rectangle(450, 275, 350, 200));
         lowerPrompt.setResizable(false);
 
+        deelevate.setBackground(new java.awt.Color(170, 154, 180));
         methods.add(deelevate);
         deelevate.setSelected(true);
         deelevate.setText("odwrotność podwyższenia stopnia");
@@ -227,6 +236,7 @@ public class Application extends javax.swing.JFrame {
             }
         });
 
+        approx.setBackground(new java.awt.Color(170, 154, 180));
         methods.add(approx);
         approx.setText("wykorzystanie aproksymacji jednostajnej");
         approx.addActionListener(new java.awt.event.ActionListener() {
@@ -235,6 +245,7 @@ public class Application extends javax.swing.JFrame {
             }
         });
 
+        hermite.setBackground(new java.awt.Color(170, 154, 180));
         methods.add(hermite);
         hermite.setText("wykorzystanie interpolacji Hermite'a");
         hermite.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +254,7 @@ public class Application extends javax.swing.JFrame {
             }
         });
 
+        PWo.setBackground(new java.awt.Color(170, 154, 180));
         methods.add(PWo);
         PWo.setText("wykorzystanie aproksymacji średniokwadratowej");
         PWo.addActionListener(new java.awt.event.ActionListener() {
@@ -291,6 +303,47 @@ public class Application extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PWo)
                 .addContainerGap())
+        );
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("<html>\n<b> <p align=\"center\"> Witaj! </p></b> <br>\n<p align=\"center\">\nWłaśnie nacisnąłeś przycisk umożliwiający\nzmniejszenie stopnia krzywej Beziera.\n</p>\n<br>\n<p align=\"center\">\nDomyślnie wybrana metoda obniżania \nstopnia to wykorzystanie procesu odwrotnego do\npodnoszenia stopnia.\n</p>\n<br>\n<p align=\"center\">\nJeśli w przyszłości będziesz chciał zmienić metodę,\nnaciśnij przycisk \"Zmień metodę\".\n</p>\n</html>");
+
+        notShow.setText("Nie pokazuj więcej tego okna");
+
+        jButton2.setBackground(new java.awt.Color(170, 154, 180));
+        jButton2.setText("OK");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout helloPromptLayout = new javax.swing.GroupLayout(helloPrompt.getContentPane());
+        helloPrompt.getContentPane().setLayout(helloPromptLayout);
+        helloPromptLayout.setHorizontalGroup(
+            helloPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(helloPromptLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(helloPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(helloPromptLayout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(helloPromptLayout.createSequentialGroup()
+                        .addComponent(notShow)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        helloPromptLayout.setVerticalGroup(
+            helloPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(helloPromptLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(helloPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(notShow)
+                    .addComponent(jButton2))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -375,6 +428,14 @@ public class Application extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(170, 154, 180));
+        jButton1.setText("<html> Zmiana <br> metody </html>");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -387,21 +448,23 @@ public class Application extends javax.swing.JFrame {
                 .addComponent(convexHull)
                 .addContainerGap())
             .addComponent(clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton1)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(colorButton)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lowerDegree)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(higherDegree)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(convexHull)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clear)
-                .addGap(0, 76, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 57, Short.MAX_VALUE))
         );
 
         jToolBar1.add(jPanel2);
@@ -511,7 +574,11 @@ public class Application extends javax.swing.JFrame {
 	}
 	
     private void lowerDegreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lowerDegreeActionPerformed
-		lowerPrompt.setVisible(true);
+		if(! notShow.isSelected()){
+			helloPrompt.setVisible(true);
+		}
+		Graphics g = jPanel1.getGraphics();
+		curve.lowerDegree(g, methodChosen);
     }//GEN-LAST:event_lowerDegreeActionPerformed
 
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
@@ -590,35 +657,39 @@ public class Application extends javax.swing.JFrame {
 
     private void deelevateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deelevateActionPerformed
         if(deelevate.isSelected()){
-			Graphics g = jPanel1.getGraphics();
-			curve.lowerDegree(g,1);
+			methodChosen = 1;
 		}
 		lowerPrompt.dispose();
     }//GEN-LAST:event_deelevateActionPerformed
 
     private void approxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approxActionPerformed
         if(approx.isSelected()){
-			Graphics g = jPanel1.getGraphics();
-			curve.lowerDegree(g,2);
+			methodChosen = 2;
 		}
 		lowerPrompt.dispose();
     }//GEN-LAST:event_approxActionPerformed
 
     private void hermiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hermiteActionPerformed
         if(hermite.isSelected()){
-			Graphics g = jPanel1.getGraphics();
-			curve.lowerDegree(g,3);
+			methodChosen = 3;
 		}
 		lowerPrompt.dispose();
     }//GEN-LAST:event_hermiteActionPerformed
 
     private void PWoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PWoActionPerformed
         if(PWo.isSelected()){
-			Graphics g = jPanel1.getGraphics();
-			curve.lowerDegree(g,4);
+			methodChosen = 4;
 		}
 		lowerPrompt.dispose();
     }//GEN-LAST:event_PWoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        lowerPrompt.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        helloPrompt.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem About;
@@ -642,11 +713,15 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JCheckBox convexHull;
     private javax.swing.JRadioButton deelevate;
     private javax.swing.JFileChooser fileChooser;
+    private javax.swing.JDialog helloPrompt;
     private javax.swing.JRadioButton hermite;
     private javax.swing.JButton higherDegree;
     private javax.swing.JDialog instructionDialog;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -655,5 +730,6 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JDialog lowerPrompt;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.ButtonGroup methods;
+    private javax.swing.JCheckBox notShow;
     // End of variables declaration//GEN-END:variables
 }

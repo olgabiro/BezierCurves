@@ -3,6 +3,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
+/**
+ * TODO:
+ * * adding weights to points
+ * * lowering degree
+ * * dragging points
+ * * saving file
+ * * opening file
+ */
 public class BezierCurves {
     Point points[];
     int weight[];
@@ -91,13 +99,66 @@ public class BezierCurves {
     }
 	
 	public void deelevateStyle(){
-		degree--;
-		points[degree-1] = points[degree];
+		double wx[] = new double[degree];
+		double wy[] = new double[degree];
 		
+		int n = degree - 1;
+		wx[0] = (double)points[0].x;
+		wy[0] = (double)points[0].y;
+		for(int i=1; i<= n/2; i++){
+			double factor = (double)i / (double)(n-i);
+			wx[i] = (1 + factor) * points[i].x - factor * wx[i-1]; 
+			wy[i] = (1 + factor) * points[i].y - factor * wy[i-1];
+		}
+		wx[n] = wy[n] = 0;
+		for(int i=n; i > n/2; i--){
+			double factor = (double)n / (double)i;
+			wx[i-1] = factor * points[i].x + (1 - factor) * wx[i];
+			wy[i-1] = factor * points[i].y + (1 - factor) * wy[i];
+			System.out.println("i = " + i + ", factor = " + factor + ", x = " + wx[i] + ", y = " + wy[i]);
+		}
+		double factor = (double)n / (double)(n/2 + 1);
+		double middle = factor * points[n/2 + 1].x + (1 - factor) * wx[(n+1)/2];
+		wx[n/2] = (middle + wx[n/2])/2;
+		middle = factor * points[n/2 + 1].y + (1 - factor) * wy[n/2 + 1];
+		wy[n/2] = (middle + wy[n/2])/2;
+		
+		for(int i=0; i<n; i++){
+			points[i] = new Point((int)wx[i], (int)wy[i]);
+		}
+		degree--;
 	}
 	
 	public void approxStyle(){
+		double alfax, alfay;
+		int n = degree-1;
+		double betax[] = new double[degree];
+		double betay[] = new double[degree];
+		// znajdujemy alfa;
+		// znajdujemy beta[k]
 		
+		double w [] = new double[degree];
+		double wx [] = new double[degree];
+		double z [] = new double[degree];
+		double wy [] = new double [degree];
+		
+		for(int i=0; i<degree; i++){
+			w[i] = points[i].x - betax[i];
+			z[i] = points[i].y - betay[i];
+		}
+		
+		wx[0] = w[0];
+		wy[0] = z[0];
+		for(int k=1; k<n; k++){
+			double factor = (double)k / (double)(n-k);
+			wx[k] = (1 + factor) * w[k] - factor * wx[k-1];
+			wy[k] = (1 + factor) * z[k] - factor * wy[k-1];
+		}
+		
+		for(int i=0; i<n; i++){
+			points[i] = new Point((int)wx[i], (int)wy[i]);
+		}
+		degree--;
 	}
     
 	public void hermiteStyle(){
