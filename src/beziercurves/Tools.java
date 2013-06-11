@@ -126,4 +126,17 @@ public class Tools {
         }
         return wynik;
     }
+	
+	public static int abs (int x){
+		if(x < 0) {return -x;}
+		return x;
+	}
+	
+	public static int findPoint(Point x, BezierCurves c){
+		for(int i=0; i<c.degree; i++){
+			if(abs(x.x - c.points[i].x) <= 5 && abs(x.y - c.points[i].y) <= 5) {
+				return i;}
+		}
+		return c.degree;
+	}
 }

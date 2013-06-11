@@ -9,8 +9,8 @@ import javax.swing.JFileChooser;
 public class Application extends javax.swing.JFrame {
     
     BezierCurves curve;
-	
 	int methodChosen;
+	int pointPosition;
     
     class MyCustomFilter extends javax.swing.filechooser.FileFilter {
         @Override
@@ -29,6 +29,7 @@ public class Application extends javax.swing.JFrame {
     public Application() {
         curve = new BezierCurves();
 		methodChosen = 1;
+		pointPosition = 0;
         initComponents();
     }
 
@@ -63,7 +64,15 @@ public class Application extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         notShow = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
-        jDialog1 = new javax.swing.JDialog();
+        changeWeightDialog = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        xCoordinate = new javax.swing.JTextField();
+        yCoordinate = new javax.swing.JTextField();
+        weight = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        saveWeight = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel2 = new javax.swing.JPanel();
@@ -72,7 +81,8 @@ public class Application extends javax.swing.JFrame {
         higherDegree = new javax.swing.JButton();
         convexHull = new javax.swing.JCheckBox();
         clear = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        methodChange = new javax.swing.JButton();
+        edition = new javax.swing.JCheckBox();
         menuBar = new javax.swing.JMenuBar();
         Menu = new javax.swing.JMenu();
         Open = new javax.swing.JMenuItem();
@@ -347,15 +357,94 @@ public class Application extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        changeWeightDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        changeWeightDialog.setTitle("Edycja punktu");
+        changeWeightDialog.setBounds(new java.awt.Rectangle(500, 250, 216, 225));
+
+        xCoordinate.setMinimumSize(new java.awt.Dimension(92, 25));
+
+        yCoordinate.setMinimumSize(new java.awt.Dimension(92, 25));
+
+        weight.setMinimumSize(new java.awt.Dimension(92, 25));
+        weight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                weightActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("współrzędna X");
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("współrzędna Y");
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Waga");
+
+        saveWeight.setBackground(new java.awt.Color(185, 173, 199));
+        saveWeight.setText("Zapisz");
+        saveWeight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveWeightActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(xCoordinate, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                            .addComponent(yCoordinate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(weight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(saveWeight)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(xCoordinate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yCoordinate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(weight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 24, Short.MAX_VALUE)
+                .addComponent(saveWeight)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout changeWeightDialogLayout = new javax.swing.GroupLayout(changeWeightDialog.getContentPane());
+        changeWeightDialog.getContentPane().setLayout(changeWeightDialogLayout);
+        changeWeightDialogLayout.setHorizontalGroup(
+            changeWeightDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changeWeightDialogLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+        changeWeightDialogLayout.setVerticalGroup(
+            changeWeightDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(changeWeightDialogLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -376,7 +465,7 @@ public class Application extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jToolBar1.setBackground(new java.awt.Color(183, 81, 211));
@@ -440,13 +529,16 @@ public class Application extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(170, 154, 180));
-        jButton1.setText("<html> Zmiana <br> metody </html>");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        methodChange.setBackground(new java.awt.Color(170, 154, 180));
+        methodChange.setText("<html> Zmiana <br> metody </html>");
+        methodChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                methodChangeActionPerformed(evt);
             }
         });
+
+        edition.setBackground(new java.awt.Color(185, 173, 199));
+        edition.setText("edycja");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -455,12 +547,16 @@ public class Application extends javax.swing.JFrame {
             .addComponent(higherDegree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lowerDegree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(colorButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addComponent(clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(methodChange)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(2, 12, Short.MAX_VALUE)
                 .addComponent(convexHull)
+                .addGap(10, 10, 10))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(edition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(clear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton1)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -475,8 +571,10 @@ public class Application extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clear)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addComponent(methodChange, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(edition)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jToolBar1.add(jPanel2);
@@ -545,7 +643,7 @@ public class Application extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -633,7 +731,16 @@ public class Application extends javax.swing.JFrame {
     }//GEN-LAST:event_colorChooserButtonActionPerformed
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        Graphics g = jPanel1.getGraphics();
+		if(edition.isSelected() && curve.degree > 0){
+			pointPosition = Tools.findPoint(jPanel1.getMousePosition(), curve);
+			if(pointPosition < curve.degree) {
+				xCoordinate.setText(String.valueOf(curve.points[pointPosition].x));
+				yCoordinate.setText(String.valueOf(curve.points[pointPosition].y));
+				weight.setText(String.valueOf(curve.weight[pointPosition]));
+				changeWeightDialog.setVisible(true);}
+			return;
+		}
+		Graphics g = jPanel1.getGraphics();
         g.setColor(jPanel1.getBackground());
         curve.drawCurve(g);
         g.setColor(curve.colour);
@@ -708,13 +815,40 @@ public class Application extends javax.swing.JFrame {
 		lowerPrompt.dispose();
     }//GEN-LAST:event_PWoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void methodChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_methodChangeActionPerformed
         lowerPrompt.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_methodChangeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         helloPrompt.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void saveWeightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveWeightActionPerformed
+        Graphics g = jPanel1.getGraphics();
+		if(convexHull.isSelected()){
+			Tools.evalConvexHull(curve, g, false);
+		}
+		g.setColor(jPanel1.getBackground());
+		curve.drawCurve(g);
+		for(int i=0; i<curve.degree; i++){
+			g.drawOval(curve.points[i].x, curve.points[i].y, 3, 3);
+		}
+		curve.points[pointPosition].x = Integer.valueOf(xCoordinate.getText());
+		curve.points[pointPosition].y = Integer.valueOf(yCoordinate.getText());
+		curve.weight[pointPosition] = Integer.valueOf(weight.getText());
+		changeWeightDialog.dispose();
+		
+		g.setColor(curve.colour);
+		drawPoints();
+		curve.drawCurve(g);
+		if(convexHull.isSelected()){
+			Tools.evalConvexHull(curve, g, true);
+		}
+    }//GEN-LAST:event_saveWeightActionPerformed
+
+    private void weightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_weightActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_weightActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem About;
@@ -728,6 +862,7 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JDialog aboutDialog;
     private javax.swing.JLabel aboutText;
     private javax.swing.JRadioButton approx;
+    private javax.swing.JDialog changeWeightDialog;
     private javax.swing.JButton clear;
     private javax.swing.JButton closeAboutDialog;
     private javax.swing.JButton closeInstrDialog;
@@ -737,25 +872,33 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JDialog colorChooserDialog;
     private javax.swing.JCheckBox convexHull;
     private javax.swing.JRadioButton deelevate;
+    private javax.swing.JCheckBox edition;
     private javax.swing.JFileChooser fileChooser;
     private javax.swing.JDialog helloPrompt;
     private javax.swing.JRadioButton hermite;
     private javax.swing.JButton higherDegree;
     private javax.swing.JDialog instructionDialog;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JButton lowerDegree;
     private javax.swing.JDialog lowerPrompt;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JButton methodChange;
     private javax.swing.ButtonGroup methods;
     private javax.swing.JCheckBox notShow;
+    private javax.swing.JButton saveWeight;
+    private javax.swing.JTextField weight;
+    private javax.swing.JTextField xCoordinate;
+    private javax.swing.JTextField yCoordinate;
     // End of variables declaration//GEN-END:variables
 }
