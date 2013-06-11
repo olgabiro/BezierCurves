@@ -30,6 +30,8 @@ public class Tools {
 	}
 	
     public static void evalConvexHull(BezierCurves c, Graphics g, boolean x){
+		if(c.degree < 2) {return;}
+		
 		if(!x) {	// clear convex hull
             g.setColor(new Color(247,241,246));
         }

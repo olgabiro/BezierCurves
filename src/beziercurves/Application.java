@@ -63,6 +63,7 @@ public class Application extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         notShow = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
+        jDialog1 = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jPanel2 = new javax.swing.JPanel();
@@ -305,6 +306,8 @@ public class Application extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        helloPrompt.setBounds(new java.awt.Rectangle(450, 250, 300, 275));
+
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("<html>\n<b> <p align=\"center\"> Witaj! </p></b> <br>\n<p align=\"center\">\nWłaśnie nacisnąłeś przycisk umożliwiający\nzmniejszenie stopnia krzywej Beziera.\n</p>\n<br>\n<p align=\"center\">\nDomyślnie wybrana metoda obniżania \nstopnia to wykorzystanie procesu odwrotnego do\npodnoszenia stopnia.\n</p>\n<br>\n<p align=\"center\">\nJeśli w przyszłości będziesz chciał zmienić metodę,\nnaciśnij przycisk \"Zmień metodę\".\n</p>\n</html>");
 
@@ -325,14 +328,12 @@ public class Application extends javax.swing.JFrame {
             .addGroup(helloPromptLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(helloPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(helloPromptLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(helloPromptLayout.createSequentialGroup()
                         .addComponent(notShow)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         helloPromptLayout.setVerticalGroup(
             helloPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,7 +344,18 @@ public class Application extends javax.swing.JFrame {
                 .addGroup(helloPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(notShow)
                     .addComponent(jButton2))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -544,9 +556,16 @@ public class Application extends javax.swing.JFrame {
     }//GEN-LAST:event_colorButtonActionPerformed
 
     private void higherDegreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_higherDegreeActionPerformed
-        if(curve.degree > 0) {
-            curve.elevateDegree(jPanel1.getGraphics());
+        Graphics g = jPanel1.getGraphics();
+		if(convexHull.isSelected()){
+			Tools.evalConvexHull(curve, g, false);
+		}
+		if(curve.degree > 0) {
+            curve.elevateDegree(g);
         }
+		if(convexHull.isSelected()){
+			Tools.evalConvexHull(curve, g, true);
+		}
     }//GEN-LAST:event_higherDegreeActionPerformed
 
     private void clearPoints(){
@@ -578,7 +597,13 @@ public class Application extends javax.swing.JFrame {
 			helloPrompt.setVisible(true);
 		}
 		Graphics g = jPanel1.getGraphics();
+		if(convexHull.isSelected()){
+			Tools.evalConvexHull(curve, g, false);
+		}
 		curve.lowerDegree(g, methodChosen);
+		if(convexHull.isSelected()){
+			Tools.evalConvexHull(curve, g, true);
+		}
     }//GEN-LAST:event_lowerDegreeActionPerformed
 
     private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
@@ -614,7 +639,7 @@ public class Application extends javax.swing.JFrame {
         g.setColor(curve.colour);
         Point a = jPanel1.getMousePosition();
         g.drawOval(a.x, a.y, 3, 3);
-        if(convexHull.isSelected() && curve.degree > 1){
+        if(convexHull.isSelected()){
 			Tools.evalConvexHull(curve, g, false);
 		}
 		drawPoints();
@@ -624,7 +649,7 @@ public class Application extends javax.swing.JFrame {
         curve.weight[n] = 1;
         curve.degree ++;
         curve.drawCurve(g);
-        if(convexHull.isSelected() && curve.degree > 1) {
+        if(convexHull.isSelected()) {
             Tools.evalConvexHull(curve, g, true);
         }
     }//GEN-LAST:event_jPanel1MouseClicked
@@ -719,6 +744,7 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JDialog instructionDialog;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
