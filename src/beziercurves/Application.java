@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class Application extends javax.swing.JFrame {
     
@@ -832,6 +833,10 @@ public class Application extends javax.swing.JFrame {
 		curve.drawCurve(g);
 		for(int i=0; i<curve.degree; i++){
 			g.drawOval(curve.points[i].x, curve.points[i].y, 3, 3);
+		}
+		if("".equals(xCoordinate.getText()) || "".equals(yCoordinate.getText()) || "".equals(weight.getText())){
+			JOptionPane.showMessageDialog(null,"Proszę wypełnić wszystkie pola!", "Błąd", JOptionPane.WARNING_MESSAGE);
+			return;
 		}
 		curve.points[pointPosition].x = Integer.valueOf(xCoordinate.getText());
 		curve.points[pointPosition].y = Integer.valueOf(yCoordinate.getText());

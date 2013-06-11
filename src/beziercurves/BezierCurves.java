@@ -5,7 +5,6 @@ import java.awt.Point;
 
 /**
  * TODO:
- * * adding weights to points
  * * lowering degree
  * * dragging points
  * * saving file
