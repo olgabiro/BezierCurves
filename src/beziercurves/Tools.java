@@ -80,11 +80,9 @@ public class Tools {
             return null;
         }
         double factor;
-        double f1;
         double wx, wy, w;
         if(t < 0.5){
             factor = t/(1-t);
-            f1 = Power((1-t), n);
             wx = data[n].x;
             wy = data[n].y;
             w = weight[n];
@@ -97,7 +95,6 @@ public class Tools {
         }
         else{
             factor = (1-t)/t;
-            f1 = Power(t, n);
             wx = data[0].x;
             wy = data[0].y;
             w = weight[0];
@@ -108,8 +105,8 @@ public class Tools {
                 w = w * factor + weight[n-i] * s;
             }
         }
-        wx = wx / w;
-        wy = wy / w;
+		wx /= w;
+		wy /= w;
         return new Point((int) wx, (int) wy);
     }
     

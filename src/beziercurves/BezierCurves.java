@@ -47,6 +47,7 @@ public class BezierCurves {
             points[i] = pom[i];
         }
         degree++;
+		weight[degree-1] = 1;
         
         // drawing the curve
         g.setColor(colour);
@@ -115,7 +116,6 @@ public class BezierCurves {
 			double factor = (double)n / (double)i;
 			wx[i-1] = factor * points[i].x + (1 - factor) * wx[i];
 			wy[i-1] = factor * points[i].y + (1 - factor) * wy[i];
-			System.out.println("i = " + i + ", factor = " + factor + ", x = " + wx[i] + ", y = " + wy[i]);
 		}
 		double factor = (double)n / (double)(n/2 + 1);
 		double middle = factor * points[n/2 + 1].x + (1 - factor) * wx[(n+1)/2];
