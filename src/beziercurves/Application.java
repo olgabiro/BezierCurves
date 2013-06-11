@@ -192,7 +192,7 @@ public class Application extends javax.swing.JFrame {
         });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("<html>\n<h2 align=\"center\"> Edytor krzywych Beziera </h2>\n\n<p align=\"center\"> Rozpocznij przygodę z krzywymi Beziera!\nKlikając na edytor, stworzysz punkty kontrolne.\nMenu z boku pomoże ci edytować krzywą:\nzwiększać oraz zmniejszać jej stopień,\nzmieniać kolor na twój ulubiony.\nPrzeciągając punkty zmieniasz kształt krzywej. </p>\n<br>\n<p align=\"center\">\nPrzyłącz się już dziś!\n</p> </html>");
+        jLabel1.setText("<html>\n<h2 align=\"center\"> Edytor krzywych Beziera </h2>\n\n<p align=\"center\"> Rozpocznij przygodę z krzywymi Beziera!\nKlikając na edytor, stworzysz punkty kontrolne.\nMenu z boku pomoże ci edytować krzywą:\nzwiększać oraz zmniejszać jej stopień,\nrysować otoczkę wypukłą dla punktów oraz edytować rozmieszczenie\ni wagę węzłów. </p>\n<br>\n<p align=\"center\">\nPrzyłącz się już dziś!\n</p> </html>");
 
         javax.swing.GroupLayout instructionDialogLayout = new javax.swing.GroupLayout(instructionDialog.getContentPane());
         instructionDialog.getContentPane().setLayout(instructionDialogLayout);

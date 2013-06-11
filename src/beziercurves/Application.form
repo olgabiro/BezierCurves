@@ -209,7 +209,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;h2 align=&quot;center&quot;&gt; Edytor krzywych Beziera &lt;/h2&gt;&#xa;&#xa;&lt;p align=&quot;center&quot;&gt; Rozpocznij przygod&#x119; z krzywymi Beziera!&#xa;Klikaj&#x105;c na edytor, stworzysz punkty kontrolne.&#xa;Menu z boku pomo&#x17c;e ci edytowa&#x107; krzyw&#x105;:&#xa;zwi&#x119;ksza&#x107; oraz zmniejsza&#x107; jej stopie&#x144;,&#xa;zmienia&#x107; kolor na tw&#xf3;j ulubiony.&#xa;Przeci&#x105;gaj&#x105;c punkty zmieniasz kszta&#x142;t krzywej. &lt;/p&gt;&#xa;&lt;br&gt;&#xa;&lt;p align=&quot;center&quot;&gt;&#xa;Przy&#x142;&#x105;cz si&#x119; ju&#x17c; dzi&#x15b;!&#xa;&lt;/p&gt; &lt;/html&gt;"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&lt;h2 align=&quot;center&quot;&gt; Edytor krzywych Beziera &lt;/h2&gt;&#xa;&#xa;&lt;p align=&quot;center&quot;&gt; Rozpocznij przygod&#x119; z krzywymi Beziera!&#xa;Klikaj&#x105;c na edytor, stworzysz punkty kontrolne.&#xa;Menu z boku pomo&#x17c;e ci edytowa&#x107; krzyw&#x105;:&#xa;zwi&#x119;ksza&#x107; oraz zmniejsza&#x107; jej stopie&#x144;,&#xa;rysowa&#x107; otoczk&#x119; wypuk&#x142;&#x105; dla punkt&#xf3;w oraz edytowa&#x107; rozmieszczenie&#xa;i wag&#x119; w&#x119;z&#x142;&#xf3;w. &lt;/p&gt;&#xa;&lt;br&gt;&#xa;&lt;p align=&quot;center&quot;&gt;&#xa;Przy&#x142;&#x105;cz si&#x119; ju&#x17c; dzi&#x15b;!&#xa;&lt;/p&gt; &lt;/html&gt;"/>
           </Properties>
         </Component>
       </SubComponents>
