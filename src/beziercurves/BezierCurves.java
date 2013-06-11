@@ -3,13 +3,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
-/**
- * TODO:
- * * lowering degree
- * * dragging points
- * * saving file
- * * opening file
- */
 public class BezierCurves {
     Point points[];
     int weight[];
@@ -75,9 +68,6 @@ public class BezierCurves {
             case 3:
                 hermiteStyle();
                 break;
-            case 4:
-                PWoStyle();
-                break;
         }
 		
 		// drawing the curve
@@ -129,12 +119,37 @@ public class BezierCurves {
 	}
 	
 	public void approxStyle(){
-		double alfax, alfay;
+		double alfax,alfay;
+		alfax = alfay = 0;
 		int n = degree-1;
 		double betax[] = new double[degree];
 		double betay[] = new double[degree];
-		// znajdujemy alfa;
-		// znajdujemy beta[k]
+		double f1 = Tools.Power((double)2, 2*n-1);
+		
+		for(int i=0; i<=n; i++){
+			int f = Tools.NewtonSymbol(n, i);
+			if((i+n)%2 != 0){
+				alfax -= points[i].x * f;
+				alfay -= points[i].y * f;
+			}
+			else {
+				alfax += points[i].x * f;
+				alfay += points[i].y * f;
+			}
+		}
+		alfax /= f1;
+		alfay /= f1;
+		
+		for(int i=0; i<=n; i++){
+			int f2 = Tools.NewtonSymbol(2*n, 2*i) / Tools.NewtonSymbol(n, i);
+			double f = Tools.Power(2, 2*n-1);
+			betax[i] = (double)points[i].x * alfax * f2/ f;
+			betay[i] = (double)points[i].y * alfay * f2/ f;
+			if(((n+i) % 2) != 0){
+				betax[i] *= (-1);
+				betay[i] *= (-1);
+			}
+		}
 		
 		double w [] = new double[degree];
 		double wx [] = new double[degree];
@@ -162,11 +177,42 @@ public class BezierCurves {
     
 	public void hermiteStyle(){
 		
+		// wciąż (trochę) się rozjeżdża
+		int m = degree-2;
+		double x [] = new double [m+1];
+		double y [] = new double [m+1];
+		int k,l;
+		k = l = 1;
+		for(int i=0; i<k; i++){
+			x[i] = 0;
+			y[i] = points[0].y;
+		}
+		for(int i=k; i<= m-l; i++){
+			x[i] = points[i].x;
+			y[i] = points[i].y;
+		}
+		for(int i=m-l+1; i<=m; i++){
+			x[i] = 1;
+			y[i] = points[degree-1].y;
+		}
+
+		Tools.diffQuotients(k, l, m, x, y);
+		double c [][] = new double [m+1][m+1];
+		c[0][m] = Tools.QuotientTable[m];
+		for(int j=m-1; j >= 0; j--){
+			c[0][j] = Tools.QuotientTable[j];
+			for(int i=1; i<=m-j; i++){
+				double factor = (double)i / (double)(m-j);
+				c[i][j] = (1-x[j]) * factor * c[i-1][j+1] - x[j] * (1 - factor) * c[i][j+1] + Tools.QuotientTable[j];
+			}
+		}
+		
+		for(int i=0; i<=m; i++){
+			points[i].x = (int)c[i][0];
+		}
+		degree--;
 	}
 	
-	public void PWoStyle(){
-		
-	}
 	
     public static void main(String[] args) {
         Tools t = new Tools();
@@ -194,6 +240,5 @@ public class BezierCurves {
                 new Application().setVisible(true);
             }
         });
-        
     }
 }

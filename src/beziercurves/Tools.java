@@ -6,9 +6,11 @@ import java.awt.Point;
 
 public class Tools {
     private static int NewtonTable [][];
+	public static double QuotientTable [];
     
     public Tools(){
         NewtonTable = new int[70][70];
+		QuotientTable = new double [70];
         for (int i=0; i<70; i++){
             NewtonTable[i][0] = 1;
             NewtonTable[i][i] = 1;
@@ -138,5 +140,23 @@ public class Tools {
 				return i;}
 		}
 		return c.degree;
+	}
+	
+	public static void diffQuotients(int k, int l, int m, double[] x, double[] y){
+		double f[][] = new double [m+1][m+1];
+		for(int i=0; i<=m; i++){
+			f[i][i] = y[i];
+		}
+		
+		for(int i=1; i<=m; i++){
+			for(int j=0; j<=m-i; j++){
+				f[j][j+i] = f[j+1][i] - f[j][i-1];
+				f[j][j+i] /= (x[j+i] - x[j]);
+			}
+		}
+		
+		for(int i=0; i<=m; i++){
+			QuotientTable[i] = f[0][i];
+		}
 	}
 }

@@ -1,10 +1,12 @@
 package beziercurves;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import javax.swing.JFileChooser;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class Application extends javax.swing.JFrame {
@@ -12,17 +14,6 @@ public class Application extends javax.swing.JFrame {
     BezierCurves curve;
 	int methodChosen;
 	int pointPosition;
-    
-    class MyCustomFilter extends javax.swing.filechooser.FileFilter {
-        @Override
-        public boolean accept(File file) {
-            return file.isDirectory() || file.getAbsolutePath().endsWith(".jpg");
-        }
-        @Override
-        public String getDescription() {
-            return "Text documents (*.jpg)";
-        }
-    } 
 
     /**
      * Creates new form Application
@@ -43,7 +34,6 @@ public class Application extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        fileChooser = new javax.swing.JFileChooser();
         colorChooserDialog = new javax.swing.JDialog();
         colorChooserButton = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -59,7 +49,6 @@ public class Application extends javax.swing.JFrame {
         deelevate = new javax.swing.JRadioButton();
         approx = new javax.swing.JRadioButton();
         hermite = new javax.swing.JRadioButton();
-        PWo = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         helloPrompt = new javax.swing.JDialog();
         jLabel3 = new javax.swing.JLabel();
@@ -86,15 +75,10 @@ public class Application extends javax.swing.JFrame {
         edition = new javax.swing.JCheckBox();
         menuBar = new javax.swing.JMenuBar();
         Menu = new javax.swing.JMenu();
-        Open = new javax.swing.JMenuItem();
-        Save = new javax.swing.JMenuItem();
         Quit = new javax.swing.JMenuItem();
         Help = new javax.swing.JMenu();
         Instruction = new javax.swing.JMenuItem();
         About = new javax.swing.JMenuItem();
-
-        fileChooser.setDialogTitle("Choose a file");
-        fileChooser.setFileFilter(new MyCustomFilter());
 
         colorChooserDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         colorChooserDialog.setTitle("Color Chooser");
@@ -266,15 +250,6 @@ public class Application extends javax.swing.JFrame {
             }
         });
 
-        PWo.setBackground(new java.awt.Color(170, 154, 180));
-        methods.add(PWo);
-        PWo.setText("wykorzystanie aproksymacji średniokwadratowej");
-        PWo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PWoActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("DejaVu Sans", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Wybierz ulubioną metodę");
@@ -295,11 +270,8 @@ public class Application extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(lowerPromptLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(PWo))
-                    .addGroup(lowerPromptLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addComponent(hermite)))
-                .addContainerGap())
+                .addGap(60, 60, 60))
         );
         lowerPromptLayout.setVerticalGroup(
             lowerPromptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,9 +284,7 @@ public class Application extends javax.swing.JFrame {
                 .addComponent(approx)
                 .addGap(12, 12, 12)
                 .addComponent(hermite)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PWo)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         helloPrompt.setBounds(new java.awt.Rectangle(450, 250, 300, 275));
@@ -585,19 +555,6 @@ public class Application extends javax.swing.JFrame {
         Menu.setBackground(new java.awt.Color(185, 178, 189));
         Menu.setText("Menu");
 
-        Open.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        Open.setText("Otwórz obraz");
-        Open.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OpenActionPerformed(evt);
-            }
-        });
-        Menu.add(Open);
-
-        Save.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        Save.setText("Zapisz");
-        Menu.add(Save);
-
         Quit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         Quit.setText("Zamknij");
         Quit.addActionListener(new java.awt.event.ActionListener() {
@@ -705,13 +662,6 @@ public class Application extends javax.swing.JFrame {
 		}
     }//GEN-LAST:event_lowerDegreeActionPerformed
 
-    private void OpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenActionPerformed
-        int returnVal = fileChooser.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-        }
-    }//GEN-LAST:event_OpenActionPerformed
-
     private void AboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AboutActionPerformed
         aboutDialog.setVisible(true);
     }//GEN-LAST:event_AboutActionPerformed
@@ -809,13 +759,6 @@ public class Application extends javax.swing.JFrame {
 		lowerPrompt.dispose();
     }//GEN-LAST:event_hermiteActionPerformed
 
-    private void PWoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PWoActionPerformed
-        if(PWo.isSelected()){
-			methodChosen = 4;
-		}
-		lowerPrompt.dispose();
-    }//GEN-LAST:event_PWoActionPerformed
-
     private void methodChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_methodChangeActionPerformed
         lowerPrompt.setVisible(true);
     }//GEN-LAST:event_methodChangeActionPerformed
@@ -860,10 +803,7 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JMenu Help;
     private javax.swing.JMenuItem Instruction;
     private javax.swing.JMenu Menu;
-    private javax.swing.JMenuItem Open;
-    private javax.swing.JRadioButton PWo;
     private javax.swing.JMenuItem Quit;
-    private javax.swing.JMenuItem Save;
     private javax.swing.JDialog aboutDialog;
     private javax.swing.JLabel aboutText;
     private javax.swing.JRadioButton approx;
@@ -878,7 +818,6 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JCheckBox convexHull;
     private javax.swing.JRadioButton deelevate;
     private javax.swing.JCheckBox edition;
-    private javax.swing.JFileChooser fileChooser;
     private javax.swing.JDialog helloPrompt;
     private javax.swing.JRadioButton hermite;
     private javax.swing.JButton higherDegree;
