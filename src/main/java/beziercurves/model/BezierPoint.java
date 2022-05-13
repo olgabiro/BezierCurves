@@ -1,23 +1,33 @@
 package beziercurves.model;
 
 import static beziercurves.common.ParamValidationHelper.assertNotNull;
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.Optional;
 
 public class BezierPoint {
 
     private BigDecimal x;
     private BigDecimal y;
-    private int weight;
+    private Optional<BigDecimal> weight = empty();
 
     public BezierPoint(final BigDecimal x,
-                       final BigDecimal y,
-                       final int weight) {
+                       final BigDecimal y) {
 
         setX(x);
         setY(y);
-        setWeight(weight);
+    }
+
+    public BezierPoint(final BigDecimal x,
+                       final BigDecimal y,
+                       final BigDecimal weight) {
+
+        setX(x);
+        setY(y);
+        setWeight(of(assertNotNull(weight)));
     }
 
     public BigDecimal getX() {
@@ -36,11 +46,11 @@ public class BezierPoint {
         this.y = assertNotNull(y);
     }
 
-    public int getWeight() {
+    public Optional<BigDecimal> getWeight() {
         return weight;
     }
 
-    private void setWeight(final int weight) {
+    private void setWeight(final Optional<BigDecimal> weight) {
         this.weight = weight;
     }
 
@@ -53,11 +63,12 @@ public class BezierPoint {
             return false;
         }
         final BezierPoint that = (BezierPoint) o;
-        return weight == that.weight
-               && Objects.equals(x,
-                                 that.x)
+        return Objects.equals(x,
+                              that.x)
                && Objects.equals(y,
-                                 that.y);
+                                 that.y)
+               && Objects.equals(weight,
+                                 that.weight);
     }
 
     @Override

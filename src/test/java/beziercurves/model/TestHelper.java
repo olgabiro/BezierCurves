@@ -29,6 +29,12 @@ public class TestHelper {
                                                          BIG_DECIMAL_DEFAULT_MAX_VALUE));
     }
 
+    public static BigDecimal getRandomBigDecimalBetween(final int minValue,
+                                                        final int maxValue) {
+        return BigDecimal.valueOf(getRandomDoubleBetween(minValue,
+                                                         maxValue));
+    }
+
     private TestHelper() {
     }
 }

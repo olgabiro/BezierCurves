@@ -17,6 +17,11 @@ public class BezierCurveTestFixture {
                                getRandomColor());
     }
 
+    public BezierCurve createRational() {
+        return new BezierCurve(getRandomWeightedPoints(),
+                               getRandomColor());
+    }
+
     public void assertPropertiesEqual(final BezierCurve actual,
                                       final List<BezierPoint> expectedPoints,
                                       final Color expectedColor) {
@@ -32,10 +37,20 @@ public class BezierCurveTestFixture {
         return this.bezierPointTestFixture.create();
     }
 
+    public BezierPoint getRandomWeightedPoint() {
+        return this.bezierPointTestFixture.createWeighted();
+    }
+
     public List<BezierPoint> getRandomPoints() {
         return Arrays.asList(getRandomPoint(),
                              getRandomPoint(),
                              getRandomPoint());
+    }
+
+    public List<BezierPoint> getRandomWeightedPoints() {
+        return Arrays.asList(getRandomWeightedPoint(),
+                             getRandomWeightedPoint(),
+                             getRandomWeightedPoint());
     }
 
     public Color getRandomColor() {
