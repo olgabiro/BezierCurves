@@ -1,5 +1,7 @@
 package beziercurves.model;
 
+import static beziercurves.common.ParamValidationHelper.assertNotNull;
+
 import java.util.List;
 
 public class BezierCurve {
@@ -10,8 +12,8 @@ public class BezierCurve {
     public BezierCurve(final List<BezierPoint> points,
                        final Color color) {
 
-        this.points = points;
-        this.color = color;
+        setPoints(points);
+        setColor(color);
     }
 
     public List<BezierPoint> getPoints() {
@@ -19,6 +21,7 @@ public class BezierCurve {
     }
 
     public void setPoints(final List<BezierPoint> points) {
+        assertNotNull(points);
         this.points = points;
     }
 
@@ -27,6 +30,7 @@ public class BezierCurve {
     }
 
     public void setColor(final Color color) {
+        assertNotNull(color);
         this.color = color;
     }
 }

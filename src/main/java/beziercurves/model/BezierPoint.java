@@ -1,5 +1,7 @@
 package beziercurves.model;
 
+import static beziercurves.common.ParamValidationHelper.assertNotNull;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -23,7 +25,7 @@ public class BezierPoint {
     }
 
     private void setX(final BigDecimal x) {
-        this.x = x;
+        this.x = assertNotNull(x);
     }
 
     public BigDecimal getY() {
@@ -31,7 +33,7 @@ public class BezierPoint {
     }
 
     private void setY(final BigDecimal y) {
-        this.y = y;
+        this.y = assertNotNull(y);
     }
 
     public int getWeight() {
