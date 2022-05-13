@@ -6,23 +6,23 @@ import java.util.List;
 
 public class BezierCurve {
 
-    private List<BezierPoint> points;
+    private List<BezierPoint> controlPoints;
     private Color color;
 
-    public BezierCurve(final List<BezierPoint> points,
+    public BezierCurve(final List<BezierPoint> controlPoints,
                        final Color color) {
 
-        setPoints(points);
+        setControlPoints(controlPoints);
         setColor(color);
     }
 
-    public List<BezierPoint> getPoints() {
-        return points;
+    public List<BezierPoint> getControlPoints() {
+        return controlPoints;
     }
 
-    public void setPoints(final List<BezierPoint> points) {
-        assertNotNull(points);
-        this.points = points;
+    public void setControlPoints(final List<BezierPoint> controlPoints) {
+        assertNotNull(controlPoints);
+        this.controlPoints = controlPoints;
     }
 
     public Color getColor() {
