@@ -1,5 +1,7 @@
 package beziercurves.model;
 
+import static beziercurves.common.ParamValidationHelper.assertNotNull;
+import static beziercurves.model.BezierPoint.COORDINATE_SCALE;
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.valueOf;
 import static java.math.RoundingMode.HALF_UP;
@@ -11,9 +13,11 @@ import java.util.List;
 public class BezierCurveProcessor {
 
     public BezierCurve increaseDegree(final BezierCurve curve) {
+        assertNotNull(curve);
         List<BezierPoint> newControlPoints = new ArrayList<>();
         final List<BezierPoint> controlPoints = curve.getControlPoints();
-        final BigDecimal degree = valueOf(controlPoints.size());
+        final BigDecimal degree = valueOf(controlPoints.size(),
+                                          COORDINATE_SCALE);
 
         newControlPoints.add(controlPoints.get(0));
 
@@ -21,7 +25,8 @@ public class BezierCurveProcessor {
             newControlPoints.add(calculateMiddlePoint(controlPoints.get(k - 1),
                                                       controlPoints.get(k),
                                                       degree,
-                                                      valueOf(k)));
+                                                      valueOf(k,
+                                                              COORDINATE_SCALE)));
         }
 
         newControlPoints.add(controlPoints.get(controlPoints.size() - 1));

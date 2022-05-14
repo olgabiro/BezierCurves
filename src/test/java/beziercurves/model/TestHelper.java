@@ -1,6 +1,7 @@
 package beziercurves.model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class TestHelper {
 
@@ -24,15 +25,24 @@ public class TestHelper {
         return Math.random() * (maxValue - minValue);
     }
 
-    public static BigDecimal getRandomBigDecimal() {
-        return BigDecimal.valueOf(getRandomDoubleBetween(BIG_DECIMAL_DEFAULT_MIN_VALUE,
-                                                         BIG_DECIMAL_DEFAULT_MAX_VALUE));
+    public static BigDecimal getRandomBigDecimal(final int scale,
+                                                 final RoundingMode roundingMode) {
+
+        return getRandomBigDecimalBetween(BIG_DECIMAL_DEFAULT_MIN_VALUE,
+                                          BIG_DECIMAL_DEFAULT_MAX_VALUE,
+                                          scale,
+                                          roundingMode);
     }
 
     public static BigDecimal getRandomBigDecimalBetween(final int minValue,
-                                                        final int maxValue) {
+                                                        final int maxValue,
+                                                        final int scale,
+                                                        final RoundingMode roundingMode) {
+
         return BigDecimal.valueOf(getRandomDoubleBetween(minValue,
-                                                         maxValue));
+                                                         maxValue))
+                         .setScale(scale,
+                                   roundingMode);
     }
 
     private TestHelper() {

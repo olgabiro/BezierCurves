@@ -1,6 +1,10 @@
 package beziercurves.model;
 
 import static beziercurves.common.ParamValidationHelper.assertNotNull;
+import static beziercurves.model.BezierPoint.COORDINATE_ROUNDING_MODE;
+import static beziercurves.model.BezierPoint.COORDINATE_SCALE;
+import static beziercurves.model.BezierPoint.WEIGHT_ROUNDING_MODE;
+import static beziercurves.model.BezierPoint.WEIGHT_SCALE;
 import static beziercurves.model.TestHelper.getRandomBigDecimal;
 import static beziercurves.model.TestHelper.getRandomBigDecimalBetween;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -37,15 +41,19 @@ class BezierPointTestFixture {
     }
 
     public BigDecimal getRandomX() {
-        return getRandomBigDecimal();
+        return getRandomBigDecimal(COORDINATE_SCALE,
+                                   COORDINATE_ROUNDING_MODE);
     }
 
     public BigDecimal getRandomY() {
-        return getRandomBigDecimal();
+        return getRandomBigDecimal(COORDINATE_SCALE,
+                                   COORDINATE_ROUNDING_MODE);
     }
 
     public BigDecimal getRandomWeight() {
         return getRandomBigDecimalBetween(0,
-                                          10);
+                                          10,
+                                          WEIGHT_SCALE,
+                                          WEIGHT_ROUNDING_MODE);
     }
 }
