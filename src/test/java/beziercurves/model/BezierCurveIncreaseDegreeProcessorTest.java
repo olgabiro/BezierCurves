@@ -1,7 +1,5 @@
 package beziercurves.model;
 
-import static beziercurves.model.BezierPoint.COORDINATE_ROUNDING_MODE;
-import static beziercurves.model.BezierPoint.COORDINATE_SCALE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigDecimal;
@@ -9,15 +7,15 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-class BezierCurveProcessorTest {
+class BezierCurveIncreaseDegreeProcessorTest {
 
-    private final BezierCurveProcessor bezierCurveProcessor = new BezierCurveProcessor();
+    private final BezierCurveIncreaseDegreeProcessor bezierCurveIncreaseDegreeProcessor = new BezierCurveIncreaseDegreeProcessor();
     private final BezierCurveTestFixture bezierCurveTestFixture = new BezierCurveTestFixture();
 
     @Test
     void increaseDegree_throwsIllegalArgumentException_whenCurveIsNull() {
         assertThrows(IllegalArgumentException.class,
-                     () -> this.bezierCurveProcessor.increaseDegree(null));
+                     () -> this.bezierCurveIncreaseDegreeProcessor.increaseDegree(null));
     }
 
     @Test
@@ -34,7 +32,7 @@ class BezierCurveProcessorTest {
                                                                                   1),
                                                                       endingPoint);
 
-        final BezierCurve actual = this.bezierCurveProcessor.increaseDegree(bezierCurve);
+        final BezierCurve actual = this.bezierCurveIncreaseDegreeProcessor.increaseDegree(bezierCurve);
 
         this.bezierCurveTestFixture.assertPropertiesEqual(actual,
                                                           expectedControlPoints,
@@ -63,7 +61,7 @@ class BezierCurveProcessorTest {
                                                                                   9),
                                                                       endingPoint);
 
-        final BezierCurve actual = this.bezierCurveProcessor.increaseDegree(bezierCurve);
+        final BezierCurve actual = this.bezierCurveIncreaseDegreeProcessor.increaseDegree(bezierCurve);
 
         this.bezierCurveTestFixture.assertPropertiesEqual(actual,
                                                           expectedControlPoints,
@@ -72,11 +70,7 @@ class BezierCurveProcessorTest {
 
     private BezierPoint createPoint(final int x,
                                     final int y) {
-        return new BezierPoint(BigDecimal.valueOf(x)
-                                         .setScale(COORDINATE_SCALE,
-                                                   COORDINATE_ROUNDING_MODE),
-                               BigDecimal.valueOf(y)
-                                         .setScale(COORDINATE_SCALE,
-                                                   COORDINATE_ROUNDING_MODE));
+        return new BezierPoint(BigDecimal.valueOf(x),
+                               BigDecimal.valueOf(y));
     }
 }

@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BezierCurveProcessor {
+class BezierCurveIncreaseDegreeProcessor {
 
-    public BezierCurve increaseDegree(final BezierCurve curve) {
+    BezierCurve increaseDegree(final BezierCurve curve) {
         assertNotNull(curve);
         List<BezierPoint> newControlPoints = new ArrayList<>();
         final List<BezierPoint> controlPoints = curve.getControlPoints();
@@ -39,6 +39,7 @@ public class BezierCurveProcessor {
                                              final BezierPoint currentPoint,
                                              final BigDecimal degree,
                                              final BigDecimal currentIndex) {
+
         BigDecimal factor = currentIndex.divide(degree,
                                                 HALF_UP);
         BigDecimal x = factor.multiply(previousPoint.getX())
