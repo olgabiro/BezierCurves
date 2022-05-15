@@ -5,10 +5,18 @@ import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 import java.util.Optional;
 
 public class BezierPoint {
+
+    static final int COORDINATE_SCALE = 3;
+    static final RoundingMode COORDINATE_ROUNDING_MODE = RoundingMode.HALF_UP;
+    static final int WEIGHT_SCALE = 3;
+    static final RoundingMode WEIGHT_ROUNDING_MODE = RoundingMode.HALF_UP;
+    static final BigDecimal DEFAULT_WEIGHT = BigDecimal.ONE.setScale(WEIGHT_SCALE,
+                                                                     WEIGHT_ROUNDING_MODE);
 
     private BigDecimal x;
     private BigDecimal y;
@@ -35,7 +43,8 @@ public class BezierPoint {
     }
 
     private void setX(final BigDecimal x) {
-        this.x = assertNotNull(x);
+        this.x = assertNotNull(x).setScale(COORDINATE_SCALE,
+                                           COORDINATE_ROUNDING_MODE);
     }
 
     public BigDecimal getY() {
@@ -43,7 +52,8 @@ public class BezierPoint {
     }
 
     private void setY(final BigDecimal y) {
-        this.y = assertNotNull(y);
+        this.y = assertNotNull(y).setScale(COORDINATE_SCALE,
+                                           COORDINATE_ROUNDING_MODE);
     }
 
     public Optional<BigDecimal> getWeight() {
@@ -51,7 +61,8 @@ public class BezierPoint {
     }
 
     private void setWeight(final Optional<BigDecimal> weight) {
-        this.weight = weight;
+        this.weight = weight.map(value -> value.setScale(WEIGHT_SCALE,
+                                                         WEIGHT_ROUNDING_MODE));
     }
 
     @Override
@@ -76,5 +87,14 @@ public class BezierPoint {
         return Objects.hash(x,
                             y,
                             weight);
+    }
+
+    @Override
+    public String toString() {
+        return "BezierPoint{" +
+               "x=" + x +
+               ", y=" + y +
+               ", weight=" + weight.orElse(DEFAULT_WEIGHT) +
+               '}';
     }
 }

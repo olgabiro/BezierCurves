@@ -13,44 +13,44 @@ public class BezierCurveTestFixture {
     private final ColorTestFixture colorTestFixture = new ColorTestFixture();
 
     public BezierCurve create() {
-        return new BezierCurve(getRandomPoints(),
+        return new BezierCurve(getRandomControlPoints(),
                                getRandomColor());
     }
 
     public BezierCurve createRational() {
-        return new BezierCurve(getRandomWeightedPoints(),
+        return new BezierCurve(getRandomWeightedControlPoints(),
                                getRandomColor());
     }
 
     public void assertPropertiesEqual(final BezierCurve actual,
-                                      final List<BezierPoint> expectedPoints,
+                                      final List<BezierPoint> expectedControlPoints,
                                       final Color expectedColor) {
 
         assertNotNull(actual);
-        assertAll(() -> assertEquals(expectedPoints,
-                                     actual.getPoints()),
+        assertAll(() -> assertEquals(expectedControlPoints,
+                                     actual.getControlPoints()),
                   () -> assertEquals(expectedColor,
                                      actual.getColor()));
     }
 
-    public BezierPoint getRandomPoint() {
+    public BezierPoint getRandomControlPoint() {
         return this.bezierPointTestFixture.create();
     }
 
-    public BezierPoint getRandomWeightedPoint() {
+    public BezierPoint getRandomWeightedControlPoint() {
         return this.bezierPointTestFixture.createWeighted();
     }
 
-    public List<BezierPoint> getRandomPoints() {
-        return Arrays.asList(getRandomPoint(),
-                             getRandomPoint(),
-                             getRandomPoint());
+    public List<BezierPoint> getRandomControlPoints() {
+        return Arrays.asList(getRandomControlPoint(),
+                             getRandomControlPoint(),
+                             getRandomControlPoint());
     }
 
-    public List<BezierPoint> getRandomWeightedPoints() {
-        return Arrays.asList(getRandomWeightedPoint(),
-                             getRandomWeightedPoint(),
-                             getRandomWeightedPoint());
+    public List<BezierPoint> getRandomWeightedControlPoints() {
+        return Arrays.asList(getRandomWeightedControlPoint(),
+                             getRandomWeightedControlPoint(),
+                             getRandomWeightedControlPoint());
     }
 
     public Color getRandomColor() {

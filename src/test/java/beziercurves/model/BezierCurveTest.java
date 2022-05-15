@@ -11,7 +11,7 @@ class BezierCurveTest {
     private final BezierCurveTestFixture testFixture = new BezierCurveTestFixture();
 
     @Test
-    void constructor_throwsIllegalArgumentException_whenPointsIsNull() {
+    void constructor_throwsIllegalArgumentException_whenControlPointsIsNull() {
         assertThrows(IllegalArgumentException.class,
                      () -> new BezierCurve(null,
                                            this.testFixture.getRandomColor()),
@@ -21,41 +21,41 @@ class BezierCurveTest {
     @Test
     void constructor_throwsIllegalArgumentException_whenColorIsNull() {
         assertThrows(IllegalArgumentException.class,
-                     () -> new BezierCurve(this.testFixture.getRandomPoints(),
+                     () -> new BezierCurve(this.testFixture.getRandomControlPoints(),
                                            null),
                      "Constructor should throw IllegalArgumentException.");
     }
 
     @Test
     void constructor_setsProperties() {
-        final List<BezierPoint> randomPoints = this.testFixture.getRandomPoints();
+        final List<BezierPoint> randomControlPoints = this.testFixture.getRandomControlPoints();
         final Color randomColor = this.testFixture.getRandomColor();
 
-        final BezierCurve actual = new BezierCurve(randomPoints,
+        final BezierCurve actual = new BezierCurve(randomControlPoints,
                                                    randomColor);
 
         this.testFixture.assertPropertiesEqual(actual,
-                                               randomPoints,
+                                               randomControlPoints,
                                                randomColor);
     }
 
     @Test
-    void setPoints_throwsIllegalArgumentException_whenPointsIsNull() {
+    void setControlPoints_throwsIllegalArgumentException_whenPointsIsNull() {
         final BezierCurve bezierCurve = this.testFixture.create();
 
         assertThrows(IllegalArgumentException.class,
-                     () -> bezierCurve.setPoints(null));
+                     () -> bezierCurve.setControlPoints(null));
     }
 
     @Test
     void setPoints() {
         final BezierCurve bezierCurve = this.testFixture.create();
-        final List<BezierPoint> randomPoints = this.testFixture.getRandomPoints();
+        final List<BezierPoint> randomControlPoints = this.testFixture.getRandomControlPoints();
 
-        bezierCurve.setPoints(randomPoints);
+        bezierCurve.setControlPoints(randomControlPoints);
 
-        assertEquals(randomPoints,
-                     bezierCurve.getPoints());
+        assertEquals(randomControlPoints,
+                     bezierCurve.getControlPoints());
     }
 
     @Test
