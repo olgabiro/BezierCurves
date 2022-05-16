@@ -13,7 +13,24 @@ class BezierCurveServiceTest {
     private final BezierCurveTestFixture bezierCurveTestFixture = new BezierCurveTestFixture();
 
     private final BezierCurveIncreaseDegreeProcessor increaseDegreeProcessor = mock(BezierCurveIncreaseDegreeProcessor.class);
-    private final BezierCurveService service = new BezierCurveService(this.increaseDegreeProcessor);
+    private final BezierCurveDecreaseDegreeProcessor decreaseDegreeProcessor = mock(BezierCurveDecreaseDegreeProcessor.class);
+
+    private final BezierCurveService service = new BezierCurveService(this.increaseDegreeProcessor,
+                                                                      this.decreaseDegreeProcessor);
+
+    @Test
+    void constructor_throwsIllegalArgumentException_whenIncreaseDegreeProcessorIsNull() {
+        assertThrows(IllegalArgumentException.class,
+                     () -> new BezierCurveService(null,
+                                                  this.decreaseDegreeProcessor));
+    }
+
+    @Test
+    void constructor_throwsIllegalArgumentException_whenDecreaseDegreeProcessorIsNull() {
+        assertThrows(IllegalArgumentException.class,
+                     () -> new BezierCurveService(this.increaseDegreeProcessor,
+                                                  null));
+    }
 
     @Test
     void increaseDegree_throwsIllegalArgumentException_whenCurveIsNull() {
@@ -30,5 +47,22 @@ class BezierCurveServiceTest {
         verify(this.increaseDegreeProcessor,
                times(1)).increaseDegree(bezierCurve);
         verifyNoMoreInteractions(this.increaseDegreeProcessor);
+    }
+
+    @Test
+    void decreaseDegree_throwsIllegalArgumentException_whenCurveIsNull() {
+        assertThrows(IllegalArgumentException.class,
+                     () -> this.service.decreaseDegree(null));
+    }
+
+    @Test
+    void decreaseDegree_delegatesToDecreaseDegreeProcessor() {
+        final BezierCurve bezierCurve = this.bezierCurveTestFixture.create();
+
+        this.service.decreaseDegree(bezierCurve);
+
+        verify(this.decreaseDegreeProcessor,
+               times(1)).decreaseDegree(bezierCurve);
+        verifyNoMoreInteractions(this.decreaseDegreeProcessor);
     }
 }

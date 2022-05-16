@@ -1,9 +1,7 @@
 package beziercurves.model;
 
 import static beziercurves.common.ParamValidationHelper.assertNotNull;
-import static beziercurves.model.BezierPoint.COORDINATE_SCALE;
-import static java.math.BigDecimal.ONE;
-import static java.math.BigDecimal.valueOf;
+import static beziercurves.model.BezierPointHelper.newBigDecimal;
 import static java.math.RoundingMode.HALF_UP;
 
 import java.math.BigDecimal;
@@ -14,10 +12,9 @@ class BezierCurveIncreaseDegreeProcessor {
 
     BezierCurve increaseDegree(final BezierCurve curve) {
         assertNotNull(curve);
-        List<BezierPoint> newControlPoints = new ArrayList<>();
+        final List<BezierPoint> newControlPoints = new ArrayList<>();
         final List<BezierPoint> controlPoints = curve.getControlPoints();
-        final BigDecimal degree = valueOf(controlPoints.size(),
-                                          COORDINATE_SCALE);
+        final BigDecimal degree = newBigDecimal(controlPoints.size());
 
         newControlPoints.add(controlPoints.get(0));
 
@@ -25,8 +22,7 @@ class BezierCurveIncreaseDegreeProcessor {
             newControlPoints.add(calculateMiddlePoint(controlPoints.get(k - 1),
                                                       controlPoints.get(k),
                                                       degree,
-                                                      valueOf(k,
-                                                              COORDINATE_SCALE)));
+                                                      newBigDecimal(k)));
         }
 
         newControlPoints.add(controlPoints.get(controlPoints.size() - 1));
@@ -40,14 +36,14 @@ class BezierCurveIncreaseDegreeProcessor {
                                              final BigDecimal degree,
                                              final BigDecimal currentIndex) {
 
-        BigDecimal factor = currentIndex.divide(degree,
-                                                HALF_UP);
-        BigDecimal x = factor.multiply(previousPoint.getX())
-                             .add(ONE.subtract(factor)
-                                     .multiply(currentPoint.getX()));
-        BigDecimal y = factor.multiply(previousPoint.getY())
-                             .add(ONE.subtract(factor)
-                                     .multiply(currentPoint.getY()));
+        final BigDecimal factor = currentIndex.divide(degree,
+                                                      HALF_UP);
+        final BigDecimal x = factor.multiply(previousPoint.getX())
+                                   .add(newBigDecimal(1).subtract(factor)
+                                                        .multiply(currentPoint.getX()));
+        final BigDecimal y = factor.multiply(previousPoint.getY())
+                                   .add(newBigDecimal(1).subtract(factor)
+                                                        .multiply(currentPoint.getY()));
         return new BezierPoint(x,
                                y);
     }
