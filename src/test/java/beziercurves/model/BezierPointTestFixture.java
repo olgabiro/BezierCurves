@@ -1,11 +1,8 @@
 package beziercurves.model;
 
 import static beziercurves.common.ParamValidationHelper.assertNotNull;
-import static beziercurves.model.BezierPoint.COORDINATE_ROUNDING_MODE;
-import static beziercurves.model.BezierPoint.COORDINATE_SCALE;
 import static beziercurves.model.BezierPoint.WEIGHT_ROUNDING_MODE;
 import static beziercurves.model.BezierPoint.WEIGHT_SCALE;
-import static beziercurves.model.TestHelper.getRandomBigDecimal;
 import static beziercurves.model.TestHelper.getRandomBigDecimalBetween;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,6 +11,8 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 class BezierPointTestFixture {
+
+    private final CoordinateTestFixture coordinateTestFixture = new CoordinateTestFixture();
 
     public BezierPoint create() {
         return new BezierPoint(getRandomX(),
@@ -27,8 +26,8 @@ class BezierPointTestFixture {
     }
 
     public void assertPropertiesEqual(final BezierPoint actual,
-                                      final BigDecimal expectedX,
-                                      final BigDecimal expectedY,
+                                      final Coordinate expectedX,
+                                      final Coordinate expectedY,
                                       final Optional<BigDecimal> expectedWeight) {
 
         assertNotNull(actual);
@@ -40,14 +39,12 @@ class BezierPointTestFixture {
                                      actual.getWeight()));
     }
 
-    public BigDecimal getRandomX() {
-        return getRandomBigDecimal(COORDINATE_SCALE,
-                                   COORDINATE_ROUNDING_MODE);
+    public Coordinate getRandomX() {
+        return this.coordinateTestFixture.create();
     }
 
-    public BigDecimal getRandomY() {
-        return getRandomBigDecimal(COORDINATE_SCALE,
-                                   COORDINATE_ROUNDING_MODE);
+    public Coordinate getRandomY() {
+        return this.coordinateTestFixture.create();
     }
 
     public BigDecimal getRandomWeight() {

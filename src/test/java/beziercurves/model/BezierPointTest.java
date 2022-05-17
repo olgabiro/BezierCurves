@@ -44,8 +44,8 @@ class BezierPointTest {
 
     @Test
     void constructor_setsProperties() {
-        final BigDecimal randomX = this.testFixture.getRandomX();
-        final BigDecimal randomY = this.testFixture.getRandomY();
+        final Coordinate randomX = this.testFixture.getRandomX();
+        final Coordinate randomY = this.testFixture.getRandomY();
 
         final BezierPoint actual = new BezierPoint(randomX,
                                                    randomY);
@@ -58,8 +58,8 @@ class BezierPointTest {
 
     @Test
     void constructor_setsProperties_whenWeightProvided() {
-        final BigDecimal randomX = this.testFixture.getRandomX();
-        final BigDecimal randomY = this.testFixture.getRandomY();
+        final Coordinate randomX = this.testFixture.getRandomX();
+        final Coordinate randomY = this.testFixture.getRandomY();
         final BigDecimal randomWeight = this.testFixture.getRandomWeight();
 
         final BezierPoint actual = new BezierPoint(randomX,

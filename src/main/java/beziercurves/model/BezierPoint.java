@@ -11,26 +11,24 @@ import java.util.Optional;
 
 public class BezierPoint {
 
-    static final int COORDINATE_SCALE = 3;
-    static final RoundingMode COORDINATE_ROUNDING_MODE = RoundingMode.HALF_UP;
     static final int WEIGHT_SCALE = 3;
     static final RoundingMode WEIGHT_ROUNDING_MODE = RoundingMode.HALF_UP;
     static final BigDecimal DEFAULT_WEIGHT = BigDecimal.ONE.setScale(WEIGHT_SCALE,
                                                                      WEIGHT_ROUNDING_MODE);
 
-    private BigDecimal x;
-    private BigDecimal y;
+    private Coordinate x;
+    private Coordinate y;
     private Optional<BigDecimal> weight = empty();
 
-    public BezierPoint(final BigDecimal x,
-                       final BigDecimal y) {
+    public BezierPoint(final Coordinate x,
+                       final Coordinate y) {
 
         setX(x);
         setY(y);
     }
 
-    public BezierPoint(final BigDecimal x,
-                       final BigDecimal y,
+    public BezierPoint(final Coordinate x,
+                       final Coordinate y,
                        final BigDecimal weight) {
 
         setX(x);
@@ -38,26 +36,24 @@ public class BezierPoint {
         setWeight(of(assertNotNull(weight)));
     }
 
-    public BigDecimal getX() {
-        return x;
+    public Coordinate getX() {
+        return this.x;
     }
 
-    private void setX(final BigDecimal x) {
-        this.x = assertNotNull(x).setScale(COORDINATE_SCALE,
-                                           COORDINATE_ROUNDING_MODE);
+    private void setX(final Coordinate x) {
+        this.x = assertNotNull(x);
     }
 
-    public BigDecimal getY() {
-        return y;
+    public Coordinate getY() {
+        return this.y;
     }
 
-    private void setY(final BigDecimal y) {
-        this.y = assertNotNull(y).setScale(COORDINATE_SCALE,
-                                           COORDINATE_ROUNDING_MODE);
+    private void setY(final Coordinate y) {
+        this.y = assertNotNull(y);
     }
 
     public Optional<BigDecimal> getWeight() {
-        return weight;
+        return this.weight;
     }
 
     private void setWeight(final Optional<BigDecimal> weight) {
@@ -74,27 +70,27 @@ public class BezierPoint {
             return false;
         }
         final BezierPoint that = (BezierPoint) o;
-        return Objects.equals(x,
+        return Objects.equals(this.x,
                               that.x)
-               && Objects.equals(y,
+               && Objects.equals(this.y,
                                  that.y)
-               && Objects.equals(weight,
+               && Objects.equals(this.weight,
                                  that.weight);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x,
-                            y,
-                            weight);
+        return Objects.hash(this.x,
+                            this.y,
+                            this.weight);
     }
 
     @Override
     public String toString() {
         return "BezierPoint{" +
-               "x=" + x +
-               ", y=" + y +
-               ", weight=" + weight.orElse(DEFAULT_WEIGHT) +
+               "x=" + this.x +
+               ", y=" + this.y +
+               ", weight=" + this.weight.orElse(DEFAULT_WEIGHT) +
                '}';
     }
 }

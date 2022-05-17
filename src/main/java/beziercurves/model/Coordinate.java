@@ -1,13 +1,15 @@
 package beziercurves.model;
 
 import static beziercurves.common.ParamValidationHelper.assertNotNull;
-import static beziercurves.model.BezierPoint.COORDINATE_ROUNDING_MODE;
-import static beziercurves.model.BezierPoint.COORDINATE_SCALE;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 public class Coordinate {
+
+    static final int COORDINATE_SCALE = 3;
+    static final RoundingMode COORDINATE_ROUNDING_MODE = RoundingMode.HALF_UP;
 
     public static Coordinate valueOf(final int value) {
         return new Coordinate(BigDecimal.valueOf(value));
@@ -42,7 +44,6 @@ public class Coordinate {
     public Coordinate divide(final Coordinate coordinate) {
         assertNotNull(coordinate);
         return new Coordinate(this.value.divide(coordinate.value,
-                                                COORDINATE_SCALE,
                                                 COORDINATE_ROUNDING_MODE));
     }
 
