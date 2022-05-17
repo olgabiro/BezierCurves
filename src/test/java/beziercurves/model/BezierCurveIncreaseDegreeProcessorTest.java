@@ -2,7 +2,6 @@ package beziercurves.model;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -70,7 +69,7 @@ class BezierCurveIncreaseDegreeProcessorTest {
 
     private BezierPoint createPoint(final int x,
                                     final int y) {
-        return new BezierPoint(BigDecimal.valueOf(x),
-                               BigDecimal.valueOf(y));
+        return new BezierPoint(Coordinate.valueOf(x),
+                               Coordinate.valueOf(y));
     }
 }
