@@ -45,6 +45,13 @@ public class TestHelper {
                                    roundingMode);
     }
 
+    public static BezierPoint createPoint(final int x,
+                                          final int y) {
+
+        return new BezierPoint(Coordinate.valueOf(x),
+                               Coordinate.valueOf(y));
+    }
+
     private TestHelper() {
     }
 }

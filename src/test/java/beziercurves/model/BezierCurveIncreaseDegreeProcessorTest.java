@@ -1,5 +1,6 @@
 package beziercurves.model;
 
+import static beziercurves.model.TestHelper.createPoint;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
@@ -65,11 +66,5 @@ class BezierCurveIncreaseDegreeProcessorTest {
         this.bezierCurveTestFixture.assertPropertiesEqual(actual,
                                                           expectedControlPoints,
                                                           bezierCurve.getColor());
-    }
-
-    private BezierPoint createPoint(final int x,
-                                    final int y) {
-        return new BezierPoint(Coordinate.valueOf(x),
-                               Coordinate.valueOf(y));
     }
 }
