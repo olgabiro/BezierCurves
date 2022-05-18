@@ -14,10 +14,12 @@ class BezierCurveServiceTest {
 
     private final BezierCurveIncreaseDegreeProcessor increaseDegreeProcessor = mock(BezierCurveIncreaseDegreeProcessor.class);
     private final BezierCurveDecreaseDegreeProcessor decreaseDegreeProcessor = mock(BezierCurveDecreaseDegreeProcessor.class);
+    private final BezierCurveApproximateProcessor approximateProcessor = mock(BezierCurveApproximateProcessor.class);
     private final BezierCurveHermiteProcessor hermiteProcessor = mock(BezierCurveHermiteProcessor.class);
 
     private final BezierCurveService service = new BezierCurveService(this.increaseDegreeProcessor,
                                                                       this.decreaseDegreeProcessor,
+                                                                      this.approximateProcessor,
                                                                       this.hermiteProcessor);
 
     @Test
@@ -25,6 +27,7 @@ class BezierCurveServiceTest {
         assertThrows(IllegalArgumentException.class,
                      () -> new BezierCurveService(null,
                                                   this.decreaseDegreeProcessor,
+                                                  this.approximateProcessor,
                                                   this.hermiteProcessor));
     }
 
@@ -32,6 +35,16 @@ class BezierCurveServiceTest {
     void constructor_throwsIllegalArgumentException_whenDecreaseDegreeProcessorIsNull() {
         assertThrows(IllegalArgumentException.class,
                      () -> new BezierCurveService(this.increaseDegreeProcessor,
+                                                  null,
+                                                  this.approximateProcessor,
+                                                  this.hermiteProcessor));
+    }
+
+    @Test
+    void constructor_throwsIllegalArgumentException_whenApproximateProcessorIsNull() {
+        assertThrows(IllegalArgumentException.class,
+                     () -> new BezierCurveService(this.increaseDegreeProcessor,
+                                                  this.decreaseDegreeProcessor,
                                                   null,
                                                   this.hermiteProcessor));
     }
@@ -41,6 +54,7 @@ class BezierCurveServiceTest {
         assertThrows(IllegalArgumentException.class,
                      () -> new BezierCurveService(this.increaseDegreeProcessor,
                                                   this.decreaseDegreeProcessor,
+                                                  this.approximateProcessor,
                                                   null));
     }
 
@@ -76,6 +90,23 @@ class BezierCurveServiceTest {
         verify(this.decreaseDegreeProcessor,
                times(1)).decreaseDegree(bezierCurve);
         verifyNoMoreInteractions(this.decreaseDegreeProcessor);
+    }
+
+    @Test
+    void approximate_throwsIllegalArgumentException_whenCurveIsNull() {
+        assertThrows(IllegalArgumentException.class,
+                     () -> this.service.approximate(null));
+    }
+
+    @Test
+    void approximate_delegatesToDecreaseDegreeProcessor() {
+        final BezierCurve bezierCurve = this.bezierCurveTestFixture.create();
+
+        this.service.approximate(bezierCurve);
+
+        verify(this.approximateProcessor,
+               times(1)).approximate(bezierCurve);
+        verifyNoMoreInteractions(this.approximateProcessor);
     }
 
     @Test

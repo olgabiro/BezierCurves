@@ -40,8 +40,12 @@ public class BezierCurveService {
         }
         return curve;
     }
+
     public BezierCurve decreaseDegreeHermite(final BezierCurve curve) {
         assertNotNull(curve);
-        return this.hermiteProcessor.decreaseDegree(curve);
+        if (curve.canDegreeBeLowered()) {
+            return this.hermiteProcessor.decreaseDegree(curve);
+        }
+        return curve;
     }
 }
