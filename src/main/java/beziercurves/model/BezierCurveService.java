@@ -24,11 +24,17 @@ public class BezierCurveService {
 
     public BezierCurve decreaseDegree(final BezierCurve curve) {
         assertNotNull(curve);
-        return this.decreaseDegreeProcessor.decreaseDegree(curve);
+        if (curve.canDegreeBeLowered()) {
+            return this.decreaseDegreeProcessor.decreaseDegree(curve);
+        }
+        return curve;
     }
 
     public BezierCurve approximate(final BezierCurve curve) {
         assertNotNull(curve);
-        return this.approximateProcessor.approximate(curve);
+        if (curve.canDegreeBeLowered()) {
+            return this.approximateProcessor.approximate(curve);
+        }
+        return curve;
     }
 }

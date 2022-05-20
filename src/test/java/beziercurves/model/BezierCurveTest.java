@@ -27,6 +27,13 @@ class BezierCurveTest {
     }
 
     @Test
+    void constructor_throwsIllegalArgumentException_whenTooLittleControlPoints() {
+        assertThrows(IllegalArgumentException.class,
+                     () -> new BezierCurve(List.of(this.testFixture.getRandomControlPoint()),
+                                           this.testFixture.getRandomColor()));
+    }
+
+    @Test
     void constructor_setsProperties() {
         final List<BezierPoint> randomControlPoints = this.testFixture.getRandomControlPoints();
         final Color randomColor = this.testFixture.getRandomColor();
@@ -45,6 +52,14 @@ class BezierCurveTest {
 
         assertThrows(IllegalArgumentException.class,
                      () -> bezierCurve.setControlPoints(null));
+    }
+
+    @Test
+    void setControlPoints_throwsIllegalArgumentException_whenTooLittleControlPoints() {
+        final BezierCurve bezierCurve = this.testFixture.create();
+
+        assertThrows(IllegalArgumentException.class,
+                     () -> bezierCurve.setControlPoints(List.of(this.testFixture.getRandomControlPoint())));
     }
 
     @Test

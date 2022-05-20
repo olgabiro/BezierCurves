@@ -1,10 +1,13 @@
 package beziercurves.model;
 
+import static beziercurves.common.ParamValidationHelper.assertHasMinSize;
 import static beziercurves.common.ParamValidationHelper.assertNotNull;
 
 import java.util.List;
 
 public class BezierCurve {
+
+    private static final int CONTROL_POINTS_MIN_SIZE = 2;
 
     private List<BezierPoint> controlPoints;
     private Color color;
@@ -17,16 +20,20 @@ public class BezierCurve {
     }
 
     public List<BezierPoint> getControlPoints() {
-        return controlPoints;
+        return this.controlPoints;
     }
 
     public void setControlPoints(final List<BezierPoint> controlPoints) {
-        assertNotNull(controlPoints);
-        this.controlPoints = controlPoints;
+        this.controlPoints = assertHasMinSize(controlPoints,
+                                              CONTROL_POINTS_MIN_SIZE);
+    }
+
+    public boolean canDegreeBeLowered() {
+        return this.controlPoints.size() > CONTROL_POINTS_MIN_SIZE;
     }
 
     public Color getColor() {
-        return color;
+        return this.color;
     }
 
     public void setColor(final Color color) {
