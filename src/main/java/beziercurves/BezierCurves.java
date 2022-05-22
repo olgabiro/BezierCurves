@@ -42,7 +42,7 @@ public class BezierCurves {
         }
         pom[this.degree] = new Point(this.points[this.degree - 1].x,
                                      this.points[this.degree - 1].y);
-        
+
         this.points = Arrays.copyOf(pom,
                                     this.degree + 1);
         this.degree++;
@@ -77,10 +77,17 @@ public class BezierCurves {
         drawCurve(g);
 
         switch (method) {
-            case 1 -> deelevateStyle();
-            case 2 -> approxStyle();
-            case 3 -> hermiteStyle();
-            default -> throw new IllegalStateException("Unexpected value: " + method);
+            case 1:
+                deelevateStyle();
+                break;
+            case 2:
+                approxStyle();
+                break;
+            case 3:
+                hermiteStyle();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + method);
         }
 
         // drawing the curve
